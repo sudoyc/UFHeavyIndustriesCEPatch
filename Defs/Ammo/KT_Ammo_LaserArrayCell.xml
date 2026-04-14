@@ -43,32 +43,25 @@
     <stackLimit>5000</stackLimit>
   </ThingDef>
 
-  <!-- ================== Projectiles ================== -->
+  <!-- ================== Projectiles (CE LaserBeam system) ================== -->
 
-  <ThingDef ParentName="BaseBulletCE">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseLaserBullet">
     <defName>Bullet_KT_LaserArrayCell</defName>
-    <label>KT laser array bolt</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
-    <graphicData>
-      <texPath>Things/Projectile/Charged/ChargeShot</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>TransparentPostLight</shaderType>
-    </graphicData>
+    <label>KT laser array beam</label>
+    <textures>
+      <li>Things/Mote/Mote_KT_flashlight</li>
+    </textures>
+    <beamWidth>0.4</beamWidth>
+    <lifetime>3</lifetime>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
-      <damageDef>Bullet</damageDef>
+      <damageDef>CE_Laser</damageDef>
+      <isInstant>true</isInstant>
       <damageAmountBase>22</damageAmountBase>
-      <speed>130</speed>
       <pelletCount>8</pelletCount>
       <spreadMult>10</spreadMult>
       <armorPenetrationSharp>45</armorPenetrationSharp>
-      <armorPenetrationBlunt>150</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
-        <impactEffecter>KT_Laserhit</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
   <!-- ==================== Recipes ========================== -->

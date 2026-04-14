@@ -70,29 +70,27 @@
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
-  <!-- ================== Projectiles ================== -->
+  <!-- ================== Projectiles (CE LaserBeam system) ================== -->
 
-  <ThingDef Name="BaseKT_CannonLaserCellBullet" ParentName="BaseExplosiveBullet" Abstract="true">
-    <graphicData>
-      <texPath>Things/Projectile/Charged/ChargeShot</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>TransparentPostLight</shaderType>
-      <drawSize>(1.8,1.8)</drawSize>
-    </graphicData>
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" Name="BaseKT_CannonLaserCellBeam" ParentName="BaseLaserBullet" Abstract="true">
+    <textures>
+      <li>Things/Mote/Mote_KT_flashlight</li>
+    </textures>
+    <beamWidth>1.2</beamWidth>
+    <lifetime>8</lifetime>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
-      <damageDef>Bullet</damageDef>
+      <damageDef>CE_Laser</damageDef>
+      <isInstant>true</isInstant>
     </projectile>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_CannonLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_CannonLaserCellBeam">
     <defName>Bullet_KT_CannonLaserCell</defName>
-    <label>KT cannon laser bolt</label>
-    <thingClass>UFHeavyIndustries_CE.ProjectileCE_Explosive_WithBeam</thingClass>
+    <label>KT cannon laser beam</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>90</damageAmountBase>
-      <speed>165</speed>
       <armorPenetrationSharp>220</armorPenetrationSharp>
-      <armorPenetrationBlunt>1100</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
     <comps>
       <li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -103,23 +101,15 @@
         <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
       </li>
     </comps>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
-        <impactEffecter>KT_Laserhit_large</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_CannonLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_CannonLaserCellBeam">
     <defName>Bullet_KT_CannonLaserCell_Focused</defName>
-    <label>KT cannon laser bolt (Focused)</label>
-    <thingClass>UFHeavyIndustries_CE.ProjectileCE_Explosive_WithBeam</thingClass>
+    <label>KT cannon laser beam (Focused)</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>72</damageAmountBase>
-      <speed>175</speed>
       <armorPenetrationSharp>380</armorPenetrationSharp>
-      <armorPenetrationBlunt>1100</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
     <comps>
       <li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -130,23 +120,15 @@
         <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
       </li>
     </comps>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
-        <impactEffecter>KT_Laserhit_large</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_CannonLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_CannonLaserCellBeam">
     <defName>Bullet_KT_CannonLaserCell_Pulse</defName>
-    <label>KT cannon laser bolt (Pulse)</label>
-    <thingClass>UFHeavyIndustries_CE.ProjectileCE_Explosive_WithBeam</thingClass>
+    <label>KT cannon laser beam (Pulse)</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>95</damageAmountBase>
-      <speed>155</speed>
       <armorPenetrationSharp>170</armorPenetrationSharp>
-      <armorPenetrationBlunt>900</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
     <comps>
       <li Class="CombatExtended.CompProperties_ExplosiveCE">
@@ -157,12 +139,6 @@
         <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
       </li>
     </comps>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
-        <impactEffecter>KT_Laserhit_large</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
   <!-- ==================== Recipes ========================== -->

@@ -70,26 +70,25 @@
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
-  <!-- ================== Projectiles ================== -->
+  <!-- ================== Projectiles (CE LaserBeam system) ================== -->
 
-  <ThingDef Name="BaseKT_LightLaserCellBullet" ParentName="BaseBulletCE" Abstract="true">
-    <graphicData>
-      <texPath>Things/Projectile/Charged/ChargeShot</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>TransparentPostLight</shaderType>
-    </graphicData>
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" Name="BaseKT_LightLaserCellBeam" ParentName="BaseLaserBullet" Abstract="true">
+    <textures>
+      <li>Things/Mote/Mote_KT_flashlight</li>
+    </textures>
+    <beamWidth>0.6</beamWidth>
+    <lifetime>4</lifetime>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
-      <damageDef>Bullet</damageDef>
+      <damageDef>CE_Laser</damageDef>
+      <isInstant>true</isInstant>
     </projectile>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_LightLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_LightLaserCellBeam">
     <defName>Bullet_KT_LightLaserCell</defName>
-    <label>KT light laser bolt</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT light laser beam</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>20</damageAmountBase>
-      <speed>165</speed>
       <secondaryDamage>
         <li>
           <def>Bomb_Secondary</def>
@@ -97,41 +96,25 @@
         </li>
       </secondaryDamage>
       <armorPenetrationSharp>42</armorPenetrationSharp>
-      <armorPenetrationBlunt>160</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
-        <impactEffecter>KT_Laserhit</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_LightLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_LightLaserCellBeam">
     <defName>Bullet_KT_LightLaserCell_Focused</defName>
-    <label>KT light laser bolt (Focused)</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT light laser beam (Focused)</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>16</damageAmountBase>
-      <speed>175</speed>
       <armorPenetrationSharp>80</armorPenetrationSharp>
-      <armorPenetrationBlunt>160</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
-        <impactEffecter>KT_Laserhit</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_LightLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_LightLaserCellBeam">
     <defName>Bullet_KT_LightLaserCell_Pulse</defName>
-    <label>KT light laser bolt (Pulse)</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT light laser beam (Pulse)</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>22</damageAmountBase>
-      <speed>155</speed>
       <secondaryDamage>
         <li>
           <def>EMP</def>
@@ -139,14 +122,8 @@
         </li>
       </secondaryDamage>
       <armorPenetrationSharp>32</armorPenetrationSharp>
-      <armorPenetrationBlunt>135</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
-        <impactEffecter>KT_Laserhit</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
   <!-- ==================== Recipes ========================== -->

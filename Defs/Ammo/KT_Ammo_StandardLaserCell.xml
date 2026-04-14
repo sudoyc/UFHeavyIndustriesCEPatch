@@ -70,27 +70,25 @@
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
-  <!-- ================== Projectiles ================== -->
+  <!-- ================== Projectiles (CE LaserBeam system) ================== -->
 
-  <ThingDef Name="BaseKT_StandardLaserCellBullet" ParentName="BaseBulletCE" Abstract="true">
-    <graphicData>
-      <texPath>Things/Projectile/Charged/ChargeShot</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>TransparentPostLight</shaderType>
-      <drawSize>(1.1,1.1)</drawSize>
-    </graphicData>
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" Name="BaseKT_StandardLaserCellBeam" ParentName="BaseLaserBullet" Abstract="true">
+    <textures>
+      <li>Things/Mote/Mote_KT_flashlight</li>
+    </textures>
+    <beamWidth>0.7</beamWidth>
+    <lifetime>4</lifetime>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
-      <damageDef>Bullet</damageDef>
+      <damageDef>CE_Laser</damageDef>
+      <isInstant>true</isInstant>
     </projectile>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_StandardLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_StandardLaserCellBeam">
     <defName>Bullet_KT_StandardLaserCell</defName>
-    <label>KT standard laser bolt</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT standard laser beam</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>32</damageAmountBase>
-      <speed>175</speed>
       <secondaryDamage>
         <li>
           <def>Bomb_Secondary</def>
@@ -98,41 +96,25 @@
         </li>
       </secondaryDamage>
       <armorPenetrationSharp>68</armorPenetrationSharp>
-      <armorPenetrationBlunt>280</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
-        <impactEffecter>KT_Laserhit</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_StandardLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_StandardLaserCellBeam">
     <defName>Bullet_KT_StandardLaserCell_Focused</defName>
-    <label>KT standard laser bolt (Focused)</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT standard laser beam (Focused)</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>26</damageAmountBase>
-      <speed>185</speed>
       <armorPenetrationSharp>125</armorPenetrationSharp>
-      <armorPenetrationBlunt>280</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
-        <impactEffecter>KT_Laserhit</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_StandardLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_StandardLaserCellBeam">
     <defName>Bullet_KT_StandardLaserCell_Pulse</defName>
-    <label>KT standard laser bolt (Pulse)</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT standard laser beam (Pulse)</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>35</damageAmountBase>
-      <speed>165</speed>
       <secondaryDamage>
         <li>
           <def>EMP</def>
@@ -140,14 +122,8 @@
         </li>
       </secondaryDamage>
       <armorPenetrationSharp>50</armorPenetrationSharp>
-      <armorPenetrationBlunt>240</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
-        <impactEffecter>KT_Laserhit</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
   <!-- ==================== Recipes ========================== -->

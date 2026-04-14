@@ -70,27 +70,25 @@
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
-  <!-- ================== Projectiles ================== -->
+  <!-- ================== Projectiles (CE LaserBeam system) ================== -->
 
-  <ThingDef Name="BaseKT_HeavyLaserCellBullet" ParentName="BaseBulletCE" Abstract="true">
-    <graphicData>
-      <texPath>Things/Projectile/Charged/ChargeShot</texPath>
-      <graphicClass>Graphic_Single</graphicClass>
-      <shaderType>TransparentPostLight</shaderType>
-      <drawSize>(1.3,1.3)</drawSize>
-    </graphicData>
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" Name="BaseKT_HeavyLaserCellBeam" ParentName="BaseLaserBullet" Abstract="true">
+    <textures>
+      <li>Things/Mote/Mote_KT_flashlight</li>
+    </textures>
+    <beamWidth>0.9</beamWidth>
+    <lifetime>6</lifetime>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
-      <damageDef>Bullet</damageDef>
+      <damageDef>CE_Laser</damageDef>
+      <isInstant>true</isInstant>
     </projectile>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_HeavyLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_HeavyLaserCellBeam">
     <defName>Bullet_KT_HeavyLaserCell</defName>
-    <label>KT heavy laser bolt</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT heavy laser beam</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>50</damageAmountBase>
-      <speed>185</speed>
       <secondaryDamage>
         <li>
           <def>Bomb_Secondary</def>
@@ -98,41 +96,25 @@
         </li>
       </secondaryDamage>
       <armorPenetrationSharp>110</armorPenetrationSharp>
-      <armorPenetrationBlunt>460</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
-        <impactEffecter>KT_Laserhit_large</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_HeavyLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_HeavyLaserCellBeam">
     <defName>Bullet_KT_HeavyLaserCell_Focused</defName>
-    <label>KT heavy laser bolt (Focused)</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT heavy laser beam (Focused)</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>40</damageAmountBase>
-      <speed>195</speed>
       <armorPenetrationSharp>200</armorPenetrationSharp>
-      <armorPenetrationBlunt>460</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
-        <impactEffecter>KT_Laserhit_large</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
-  <ThingDef ParentName="BaseKT_HeavyLaserCellBullet">
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_HeavyLaserCellBeam">
     <defName>Bullet_KT_HeavyLaserCell_Pulse</defName>
-    <label>KT heavy laser bolt (Pulse)</label>
-    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
+    <label>KT heavy laser beam (Pulse)</label>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>55</damageAmountBase>
-      <speed>175</speed>
       <secondaryDamage>
         <li>
           <def>EMP</def>
@@ -140,14 +122,8 @@
         </li>
       </secondaryDamage>
       <armorPenetrationSharp>85</armorPenetrationSharp>
-      <armorPenetrationBlunt>390</armorPenetrationBlunt>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
-    <modExtensions>
-      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
-        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
-        <impactEffecter>KT_Laserhit_large</impactEffecter>
-      </li>
-    </modExtensions>
   </ThingDef>
 
   <!-- ==================== Recipes ========================== -->
