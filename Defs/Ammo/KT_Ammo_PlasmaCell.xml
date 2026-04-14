@@ -45,7 +45,7 @@
       <texPath>Things/Ammo/Charged/LargeRegular</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>Charged</ammoClass>
+    <ammoClass>KT_Plasma</ammoClass>
   </ThingDef>
 
   <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_PlasmaCellBase">
@@ -55,7 +55,7 @@
       <texPath>Things/Ammo/Charged/LargeConc</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>ChargedAP</ammoClass>
+    <ammoClass>KT_PlasmaFocused</ammoClass>
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
@@ -66,7 +66,7 @@
       <texPath>Things/Ammo/Charged/LargeIon</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>Ionized</ammoClass>
+    <ammoClass>KT_PlasmaOverload</ammoClass>
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 

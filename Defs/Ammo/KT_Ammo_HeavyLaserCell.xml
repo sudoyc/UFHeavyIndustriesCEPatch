@@ -45,7 +45,7 @@
       <texPath>Things/Ammo/Charged/LargeRegular</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>Charged</ammoClass>
+    <ammoClass>KT_Laser</ammoClass>
   </ThingDef>
 
   <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_HeavyLaserCellBase">
@@ -55,7 +55,7 @@
       <texPath>Things/Ammo/Charged/LargeConc</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>ChargedAP</ammoClass>
+    <ammoClass>KT_LaserFocused</ammoClass>
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
@@ -66,7 +66,7 @@
       <texPath>Things/Ammo/Charged/LargeIon</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>Ionized</ammoClass>
+    <ammoClass>KT_LaserPulse</ammoClass>
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
@@ -87,6 +87,7 @@
   <ThingDef ParentName="BaseKT_HeavyLaserCellBullet">
     <defName>Bullet_KT_HeavyLaserCell</defName>
     <label>KT heavy laser bolt</label>
+    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>50</damageAmountBase>
       <speed>185</speed>
@@ -99,22 +100,36 @@
       <armorPenetrationSharp>110</armorPenetrationSharp>
       <armorPenetrationBlunt>460</armorPenetrationBlunt>
     </projectile>
+    <modExtensions>
+      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
+        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
+        <impactEffecter>KT_Laserhit_large</impactEffecter>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <ThingDef ParentName="BaseKT_HeavyLaserCellBullet">
     <defName>Bullet_KT_HeavyLaserCell_Focused</defName>
     <label>KT heavy laser bolt (Focused)</label>
+    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>40</damageAmountBase>
       <speed>195</speed>
       <armorPenetrationSharp>200</armorPenetrationSharp>
       <armorPenetrationBlunt>460</armorPenetrationBlunt>
     </projectile>
+    <modExtensions>
+      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
+        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
+        <impactEffecter>KT_Laserhit_large</impactEffecter>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <ThingDef ParentName="BaseKT_HeavyLaserCellBullet">
     <defName>Bullet_KT_HeavyLaserCell_Pulse</defName>
     <label>KT heavy laser bolt (Pulse)</label>
+    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageAmountBase>55</damageAmountBase>
       <speed>175</speed>
@@ -127,6 +142,12 @@
       <armorPenetrationSharp>85</armorPenetrationSharp>
       <armorPenetrationBlunt>390</armorPenetrationBlunt>
     </projectile>
+    <modExtensions>
+      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
+        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
+        <impactEffecter>KT_Laserhit_large</impactEffecter>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <!-- ==================== Recipes ========================== -->

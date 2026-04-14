@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- Laser -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_Laser</defName>
+    <label>KT laser</label>
+    <description>Standard laser energy cell for UF covenant weapons.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_LaserFocused</defName>
+    <label>KT focused laser</label>
+    <labelShort>focused</labelShort>
+    <description>Focused laser cell with enhanced armor penetration.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_LaserPulse</defName>
+    <label>KT pulse laser</label>
+    <labelShort>pulse</labelShort>
+    <description>Pulse laser cell with EMP effect, effective against mechanoids.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Bolt -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_BoltStandard</defName>
+    <label>KT bolt</label>
+    <description>Rocket-propelled explosive bolt round.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_BoltAP</defName>
+    <label>KT bolt (AP)</label>
+    <labelShort>AP</labelShort>
+    <description>Armor-piercing bolt round with hardened penetrator.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_BoltIncendiary</defName>
+    <label>KT bolt (incendiary)</label>
+    <labelShort>incen.</labelShort>
+    <description>Incendiary bolt round that ignites on impact.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Metal Storm -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_MetalStorm</defName>
+    <label>KT metal storm</label>
+    <description>Electromagnetically propelled metal slug.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_MetalStormAP</defName>
+    <label>KT metal storm (AP)</label>
+    <labelShort>AP</labelShort>
+    <description>Armor-piercing electromagnetic slug.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Plasma -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_Plasma</defName>
+    <label>KT plasma</label>
+    <description>Standard plasma cell with explosive and EMP effects.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_PlasmaFocused</defName>
+    <label>KT plasma (focused)</label>
+    <labelShort>focused</labelShort>
+    <description>Focused plasma cell for enhanced penetration.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_PlasmaOverload</defName>
+    <label>KT plasma (overload)</label>
+    <labelShort>overload</labelShort>
+    <description>Overcharged plasma cell with massive EMP burst.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+</Defs>

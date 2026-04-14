@@ -32,7 +32,7 @@
       <Mass>0.02</Mass>
       <Bulk>0.03</Bulk>
     </statBases>
-    <ammoClass>Charged</ammoClass>
+    <ammoClass>KT_Laser</ammoClass>
     <tradeTags>
       <li>CE_AutoEnableTrade</li>
       <li>CE_AutoEnableCrafting_FabricationBench</li>
@@ -48,6 +48,7 @@
   <ThingDef ParentName="BaseBulletCE">
     <defName>Bullet_KT_LaserArrayCell</defName>
     <label>KT laser array bolt</label>
+    <thingClass>UFHeavyIndustries_CE.BulletCE_WithBeam</thingClass>
     <graphicData>
       <texPath>Things/Projectile/Charged/ChargeShot</texPath>
       <graphicClass>Graphic_Single</graphicClass>
@@ -62,6 +63,12 @@
       <armorPenetrationSharp>45</armorPenetrationSharp>
       <armorPenetrationBlunt>150</armorPenetrationBlunt>
     </projectile>
+    <modExtensions>
+      <li Class="UFHeavyIndustries_CE.BeamVisualExtension">
+        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
+        <impactEffecter>KT_Laserhit</impactEffecter>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <!-- ==================== Recipes ========================== -->

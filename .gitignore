@@ -1,0 +1,5 @@
+Source/obj/
+Source/bin/
+*.user
+log.txt
+log.txt~

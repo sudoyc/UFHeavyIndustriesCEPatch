@@ -44,7 +44,7 @@
       <texPath>Things/Ammo/Charged/SmallRegular</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>Charged</ammoClass>
+    <ammoClass>KT_Laser</ammoClass>
   </ThingDef>
 
   <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_MoeLotlCellBase">
@@ -54,7 +54,7 @@
       <texPath>Things/Ammo/Charged/SmallConc</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>ChargedAP</ammoClass>
+    <ammoClass>KT_LaserFocused</ammoClass>
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 

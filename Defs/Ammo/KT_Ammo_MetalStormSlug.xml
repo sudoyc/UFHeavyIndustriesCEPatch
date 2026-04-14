@@ -44,7 +44,7 @@
       <texPath>Things/Ammo/Charged/LargeRegular</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>Charged</ammoClass>
+    <ammoClass>KT_MetalStorm</ammoClass>
   </ThingDef>
 
   <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_MetalStormSlugBase">
@@ -54,7 +54,7 @@
       <texPath>Things/Ammo/Charged/LargeConc</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>ChargedAP</ammoClass>
+    <ammoClass>KT_MetalStormAP</ammoClass>
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
