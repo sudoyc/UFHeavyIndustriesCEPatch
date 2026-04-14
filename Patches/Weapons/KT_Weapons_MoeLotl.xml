@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- ===== KT_MoeLotl_Gatling — conditional on MoeLotl Zombie mod ===== -->
+
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>fxz.moelotlzombie.update</li>
+		</mods>
+		<match Class="PatchOperationSequence">
+			<operations>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="KT_MoeLotl_Gatling"]/verbs/li/verbClass</xpath>
+					<value>
+						<verbClass>Verb_Shoot</verbClass>
+					</value>
+				</li>
+
+				<li Class="PatchOperationReplace">
+					<xpath>Defs/ThingDef[defName="KT_MoeLotl_Gatling"]/tools</xpath>
+					<value>
+						<tools>
+							<li Class="CombatExtended.ToolCE">
+								<label>stock</label>
+								<capacities>
+									<li>Blunt</li>
+								</capacities>
+								<power>12</power>
+								<cooldownTime>2.0</cooldownTime>
+								<armorPenetrationBlunt>6</armorPenetrationBlunt>
+								<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+							</li>
+						</tools>
+					</value>
+				</li>
+
+				<li Class="CombatExtended.PatchOperationMakeGunCECompatible">
+					<defName>KT_MoeLotl_Gatling</defName>
+					<statBases>
+						<Mass>8.0</Mass>
+						<RangedWeapon_Cooldown>0.2</RangedWeapon_Cooldown>
+						<SightsEfficiency>0.9</SightsEfficiency>
+						<ShotSpread>0.08</ShotSpread>
+						<SwayFactor>1.8</SwayFactor>
+						<Bulk>12.0</Bulk>
+					</statBases>
+					<Properties>
+						<recoilAmount>0.85</recoilAmount>
+						<recoilPattern>Mounted</recoilPattern>
+						<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+						<hasStandardCommand>true</hasStandardCommand>
+						<defaultProjectile>Bullet_KT_MoeLotlCell</defaultProjectile>
+						<warmupTime>1.5</warmupTime>
+						<range>45</range>
+						<burstShotCount>20</burstShotCount>
+						<ticksBetweenBurstShots>3</ticksBetweenBurstShots>
+						<soundCast>Shot_Minigun</soundCast>
+						<soundCastTail>GunTail_Heavy</soundCastTail>
+						<muzzleFlashScale>12</muzzleFlashScale>
+					</Properties>
+					<AmmoUser>
+						<magazineSize>200</magazineSize>
+						<reloadTime>8</reloadTime>
+						<ammoSet>AmmoSet_KT_MoeLotlCell</ammoSet>
+					</AmmoUser>
+					<FireModes>
+						<aimedBurstShotCount>10</aimedBurstShotCount>
+						<aiUseBurstMode>FALSE</aiUseBurstMode>
+						<aiAimMode>SuppressFire</aiAimMode>
+					</FireModes>
+				</li>
+
+			</operations>
+		</match>
+	</Operation>
+
+</Patch>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingCategoryDef>
+    <defName>AmmoKT_BoltRound</defName>
+    <label>KT Bolt Round</label>
+    <parent>AmmoAdvanced</parent>
+    <iconPath>UI/Icons/ThingCategories/CaliberChargeLarge</iconPath>
+  </ThingCategoryDef>
+
+  <!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_KT_BoltRound</defName>
+    <label>KT Bolt Round</label>
+    <ammoTypes>
+      <Ammo_KT_BoltRound>Bullet_KT_BoltRound</Ammo_KT_BoltRound>
+      <Ammo_KT_BoltRound_AP>Bullet_KT_BoltRound_AP</Ammo_KT_BoltRound_AP>
+      <Ammo_KT_BoltRound_Incendiary>Bullet_KT_BoltRound_Incendiary</Ammo_KT_BoltRound_Incendiary>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+
+  <!-- ==================== Ammo ========================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" Name="KT_BoltRoundBase" ParentName="SpacerMediumAmmoBase" Abstract="True">
+    <description>Rocket-propelled explosive round for UF Heavy Industries weapons.</description>
+    <statBases>
+      <Mass>0.06</Mass>
+      <Bulk>0.08</Bulk>
+    </statBases>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_FabricationBench</li>
+    </tradeTags>
+    <thingCategories>
+      <li>AmmoKT_BoltRound</li>
+    </thingCategories>
+    <stackLimit>2500</stackLimit>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_BoltRoundBase">
+    <defName>Ammo_KT_BoltRound</defName>
+    <label>KT bolt round</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeRegular</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>Charged</ammoClass>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_BoltRoundBase">
+    <defName>Ammo_KT_BoltRound_AP</defName>
+    <label>KT bolt round (AP)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeConc</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>ChargedAP</ammoClass>
+    <generateAllowChance>0.15</generateAllowChance>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_BoltRoundBase">
+    <defName>Ammo_KT_BoltRound_Incendiary</defName>
+    <label>KT bolt round (Incendiary)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeIon</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>GrenadeIncendiary</ammoClass>
+    <generateAllowChance>0.15</generateAllowChance>
+  </ThingDef>
+
+  <!-- ================== Projectiles ================== -->
+
+  <ThingDef Name="BaseKT_BoltRoundBullet" ParentName="BaseExplosiveBullet" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/Charged/ChargeShot</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+      <drawSize>(1.2,1.2)</drawSize>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Bullet</damageDef>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseKT_BoltRoundBullet">
+    <defName>Bullet_KT_BoltRound</defName>
+    <label>KT bolt round (HE)</label>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageAmountBase>44</damageAmountBase>
+      <speed>115</speed>
+      <armorPenetrationSharp>90</armorPenetrationSharp>
+      <armorPenetrationBlunt>380</armorPenetrationBlunt>
+    </projectile>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <damageAmountBase>28</damageAmountBase>
+        <explosiveDamageType>Bomb</explosiveDamageType>
+        <explosiveRadius>1.5</explosiveRadius>
+        <explosionSound>MortarBomb_Explode</explosionSound>
+        <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseKT_BoltRoundBullet">
+    <defName>Bullet_KT_BoltRound_AP</defName>
+    <label>KT bolt round (AP)</label>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageAmountBase>36</damageAmountBase>
+      <speed>125</speed>
+      <armorPenetrationSharp>165</armorPenetrationSharp>
+      <armorPenetrationBlunt>380</armorPenetrationBlunt>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseKT_BoltRoundBullet">
+    <defName>Bullet_KT_BoltRound_Incendiary</defName>
+    <label>KT bolt round (Incendiary)</label>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageAmountBase>40</damageAmountBase>
+      <speed>115</speed>
+      <armorPenetrationSharp>72</armorPenetrationSharp>
+      <armorPenetrationBlunt>320</armorPenetrationBlunt>
+    </projectile>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <damageAmountBase>22</damageAmountBase>
+        <explosiveDamageType>Flame</explosiveDamageType>
+        <explosiveRadius>1.0</explosiveRadius>
+        <explosionSound>MortarBomb_Explode</explosionSound>
+        <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+      </li>
+    </comps>
+  </ThingDef>
+
+  <!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="ChargeAmmoRecipeBase">
+    <defName>MakeAmmo_KT_BoltRound</defName>
+    <label>make KT bolt round x200</label>
+    <description>Craft 200 KT bolt rounds (HE).</description>
+    <jobString>Making KT bolt rounds.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Plasteel</li></thingDefs>
+        </filter>
+        <count>35</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>30</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Chemfuel</li></thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>8</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Plasteel</li>
+        <li>Steel</li>
+        <li>Chemfuel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_BoltRound>200</Ammo_KT_BoltRound>
+    </products>
+    <workAmount>14000</workAmount>
+  </RecipeDef>
+
+  <RecipeDef ParentName="ChargeAmmoRecipeBase">
+    <defName>MakeAmmo_KT_BoltRound_AP</defName>
+    <label>make KT bolt round (AP) x200</label>
+    <description>Craft 200 KT bolt rounds (AP).</description>
+    <jobString>Making KT bolt rounds (AP).</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Plasteel</li></thingDefs>
+        </filter>
+        <count>35</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>30</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Chemfuel</li></thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Plasteel</li>
+        <li>Steel</li>
+        <li>Chemfuel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_BoltRound_AP>200</Ammo_KT_BoltRound_AP>
+    </products>
+    <workAmount>16000</workAmount>
+  </RecipeDef>
+
+  <RecipeDef ParentName="ChargeAmmoRecipeBase">
+    <defName>MakeAmmo_KT_BoltRound_Incendiary</defName>
+    <label>make KT bolt round (Incendiary) x200</label>
+    <description>Craft 200 KT bolt rounds (Incendiary).</description>
+    <jobString>Making KT bolt rounds (Incendiary).</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Plasteel</li></thingDefs>
+        </filter>
+        <count>35</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>30</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Chemfuel</li></thingDefs>
+        </filter>
+        <count>25</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>8</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Plasteel</li>
+        <li>Steel</li>
+        <li>Chemfuel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_BoltRound_Incendiary>200</Ammo_KT_BoltRound_Incendiary>
+    </products>
+    <workAmount>15000</workAmount>
+  </RecipeDef>
+
+</Defs>

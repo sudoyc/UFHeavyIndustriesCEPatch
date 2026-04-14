@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+  <name>UF Heavy Industries - CE Patch</name>
+  <author>ycyc</author>
+  <packageId>ycyc.UFHeavyIndustries.CEPatch</packageId>
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+  <description>Combat Extended compatibility patch for 联合重工 - UF Heavy Industries (KindSeal.LOL).</description>
+
+  <modDependencies>
+    <li>
+      <packageId>KindSeal.LOL</packageId>
+      <displayName>联合重工-UF Heavy Industries</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/3555662938</steamWorkshopUrl>
+    </li>
+    <li>
+      <packageId>CETeam.CombatExtended</packageId>
+      <displayName>Combat Extended</displayName>
+      <steamWorkshopUrl>steam://url/CommunityFilePage/2890901044</steamWorkshopUrl>
+    </li>
+  </modDependencies>
+
+  <loadAfter>
+    <li>KindSeal.LOL</li>
+    <li>CETeam.CombatExtended</li>
+    <li>DiZhuan.SRALib</li>
+  </loadAfter>
+</ModMetaData>

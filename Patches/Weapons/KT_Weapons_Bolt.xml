@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- ===== KT_Boltgun ===== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Boltgun"]/verbs/li/verbClass</xpath>
+		<value>
+			<verbClass>Verb_Shoot</verbClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Boltgun"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>14</power>
+					<cooldownTime>1.85</cooldownTime>
+					<armorPenetrationBlunt>7</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+				<li Class="CombatExtended.ToolCE">
+					<label>muzzle</label>
+					<capacities>
+						<li>Poke</li>
+					</capacities>
+					<power>12</power>
+					<cooldownTime>1.2</cooldownTime>
+					<armorPenetrationBlunt>7</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Muzzle</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_Boltgun</defName>
+		<statBases>
+			<Mass>6.0</Mass>
+			<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.0</SightsEfficiency>
+			<ShotSpread>0.06</ShotSpread>
+			<SwayFactor>1.3</SwayFactor>
+			<Bulk>10.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>2.0</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_BoltRound</defaultProjectile>
+			<warmupTime>1.2</warmupTime>
+			<range>55</range>
+			<burstShotCount>1</burstShotCount>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>12</muzzleFlashScale>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>12</magazineSize>
+			<reloadTime>4</reloadTime>
+			<ammoSet>AmmoSet_KT_BoltRound</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiUseBurstMode>FALSE</aiUseBurstMode>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+
+	<!-- ===== KT_BoltgunP ===== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_BoltgunP"]/verbs/li/verbClass</xpath>
+		<value>
+			<verbClass>Verb_Shoot</verbClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_BoltgunP"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>14</power>
+					<cooldownTime>1.85</cooldownTime>
+					<armorPenetrationBlunt>7</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+				<li Class="CombatExtended.ToolCE">
+					<label>muzzle</label>
+					<capacities>
+						<li>Poke</li>
+					</capacities>
+					<power>12</power>
+					<cooldownTime>1.2</cooldownTime>
+					<armorPenetrationBlunt>7</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Muzzle</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_BoltgunP</defName>
+		<statBases>
+			<Mass>7.0</Mass>
+			<RangedWeapon_Cooldown>0.8</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.5</SightsEfficiency>
+			<ShotSpread>0.03</ShotSpread>
+			<SwayFactor>1.1</SwayFactor>
+			<Bulk>11.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>1.8</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_BoltRound</defaultProjectile>
+			<warmupTime>1.2</warmupTime>
+			<range>62</range>
+			<burstShotCount>3</burstShotCount>
+			<ticksBetweenBurstShots>12</ticksBetweenBurstShots>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>12</muzzleFlashScale>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>18</magazineSize>
+			<reloadTime>4.5</reloadTime>
+			<ammoSet>AmmoSet_KT_BoltRound</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aimedBurstShotCount>2</aimedBurstShotCount>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+</Patch>

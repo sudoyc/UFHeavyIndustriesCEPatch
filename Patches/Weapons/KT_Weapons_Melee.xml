@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- CE 近战武器补丁 — UF Heavy Industries -->
+<!-- 将原版 tools 替换为 ToolCE 条目，保留 extraMeleeDamages 特效 -->
+
+<Patch>
+
+  <!-- ========================================================= -->
+  <!-- KT_Sword — 和平长剑                                        -->
+  <!-- 原始特效：EMP (point=12, edge=15)                          -->
+  <!-- ========================================================= -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="KT_Sword"]/tools</xpath>
+    <value>
+      <tools>
+        <li Class="CombatExtended.ToolCE">
+          <label>blade</label>
+          <capacities>
+            <li>Cut</li>
+          </capacities>
+          <power>25</power>
+          <cooldownTime>1.5</cooldownTime>
+          <armorPenetrationSharp>30</armorPenetrationSharp>
+          <armorPenetrationBlunt>15</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>15</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+        <li Class="CombatExtended.ToolCE">
+          <label>point</label>
+          <capacities>
+            <li>Stab</li>
+          </capacities>
+          <power>20</power>
+          <cooldownTime>1.2</cooldownTime>
+          <armorPenetrationSharp>30</armorPenetrationSharp>
+          <armorPenetrationBlunt>15</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Point</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>12</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+      </tools>
+    </value>
+  </Operation>
+
+  <!-- KT_Sword — equippedStatOffsets: MeleeCounterParryBonus -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="KT_Sword"]/equippedStatOffsets</xpath>
+    <value>
+      <MeleeCounterParryBonus>0.5</MeleeCounterParryBonus>
+    </value>
+  </Operation>
+
+
+  <!-- ========================================================= -->
+  <!-- KT_Energy_sword — 等离子腕剑                               -->
+  <!-- 原始特效：EMP (point=25, edge=30)                          -->
+  <!-- ========================================================= -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="KT_Energy_sword"]/tools</xpath>
+    <value>
+      <tools>
+        <li Class="CombatExtended.ToolCE">
+          <label>blade</label>
+          <capacities>
+            <li>Cut</li>
+          </capacities>
+          <power>30</power>
+          <cooldownTime>1.2</cooldownTime>
+          <armorPenetrationSharp>50</armorPenetrationSharp>
+          <armorPenetrationBlunt>20</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>30</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+        <li Class="CombatExtended.ToolCE">
+          <label>point</label>
+          <capacities>
+            <li>Stab</li>
+          </capacities>
+          <power>25</power>
+          <cooldownTime>1.0</cooldownTime>
+          <armorPenetrationSharp>50</armorPenetrationSharp>
+          <armorPenetrationBlunt>20</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Point</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>25</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+      </tools>
+    </value>
+  </Operation>
+
+  <!-- KT_Energy_sword — equippedStatOffsets -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="KT_Energy_sword"]/equippedStatOffsets</xpath>
+    <value>
+      <MeleeCounterParryBonus>0.8</MeleeCounterParryBonus>
+      <MeleeCritChance>0.5</MeleeCritChance>
+    </value>
+  </Operation>
+
+
+  <!-- ========================================================= -->
+  <!-- KT_ChainSword — 链锯剑（单体高频模式）                     -->
+  <!-- 原始特效：EMP=25, Stun=12                                  -->
+  <!-- ========================================================= -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="KT_ChainSword"]/tools</xpath>
+    <value>
+      <tools>
+        <li Class="CombatExtended.ToolCE">
+          <label>teeth</label>
+          <capacities>
+            <li>Cut</li>
+          </capacities>
+          <power>35</power>
+          <cooldownTime>0.8</cooldownTime>
+          <armorPenetrationSharp>80</armorPenetrationSharp>
+          <armorPenetrationBlunt>30</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>25</amount>
+            </li>
+            <li>
+              <def>Stun</def>
+              <amount>12</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+        <li Class="CombatExtended.ToolCE">
+          <label>thrust</label>
+          <capacities>
+            <li>Stab</li>
+          </capacities>
+          <power>30</power>
+          <cooldownTime>0.6</cooldownTime>
+          <armorPenetrationSharp>80</armorPenetrationSharp>
+          <armorPenetrationBlunt>30</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Point</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>25</amount>
+            </li>
+            <li>
+              <def>Stun</def>
+              <amount>12</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+      </tools>
+    </value>
+  </Operation>
+
+  <!-- KT_ChainSword — equippedStatOffsets -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="KT_ChainSword"]/equippedStatOffsets</xpath>
+    <value>
+      <MeleeCounterParryBonus>1.0</MeleeCounterParryBonus>
+      <MeleeCritChance>0.8</MeleeCritChance>
+    </value>
+  </Operation>
+
+
+  <!-- ========================================================= -->
+  <!-- KT_ChainSword_AOE — 链锯剑（劈砍 AOE 模式）               -->
+  <!-- 原始特效：Heavy crosscut EMP=10；保留第二工具 edge          -->
+  <!-- ========================================================= -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="KT_ChainSword_AOE"]/tools</xpath>
+    <value>
+      <tools>
+        <li Class="CombatExtended.ToolCE">
+          <label>sweep</label>
+          <capacities>
+            <li>Cut</li>
+          </capacities>
+          <power>40</power>
+          <cooldownTime>1.5</cooldownTime>
+          <armorPenetrationSharp>60</armorPenetrationSharp>
+          <armorPenetrationBlunt>25</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>10</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+      </tools>
+    </value>
+  </Operation>
+
+  <!-- KT_ChainSword_AOE — equippedStatOffsets -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="KT_ChainSword_AOE"]/equippedStatOffsets</xpath>
+    <value>
+      <MeleeCounterParryBonus>0.6</MeleeCounterParryBonus>
+    </value>
+  </Operation>
+
+
+  <!-- ========================================================= -->
+  <!-- KT_Hammer — 动力锤                                        -->
+  <!-- 原始特效：handle EMP=15 (Poke), head EMP=15 (AOE)         -->
+  <!-- ========================================================= -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="KT_Hammer"]/tools</xpath>
+    <value>
+      <tools>
+        <li Class="CombatExtended.ToolCE">
+          <label>head</label>
+          <capacities>
+            <li>Blunt</li>
+          </capacities>
+          <power>45</power>
+          <cooldownTime>2.0</cooldownTime>
+          <armorPenetrationBlunt>120</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Head</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>15</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+        <li Class="CombatExtended.ToolCE">
+          <label>handle</label>
+          <capacities>
+            <li>Blunt</li>
+          </capacities>
+          <power>15</power>
+          <cooldownTime>1.5</cooldownTime>
+          <armorPenetrationBlunt>30</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>15</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+      </tools>
+    </value>
+  </Operation>
+
+  <!-- KT_Hammer — equippedStatOffsets -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="KT_Hammer"]/equippedStatOffsets</xpath>
+    <value>
+      <MeleeCounterParryBonus>0.4</MeleeCounterParryBonus>
+    </value>
+  </Operation>
+
+
+  <!-- ========================================================= -->
+  <!-- KT_Pknife — 麻醉爪刀                                      -->
+  <!-- 原始特效：BulletTranquilizer (point=3, edge=2)            -->
+  <!-- ========================================================= -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="KT_Pknife"]/tools</xpath>
+    <value>
+      <tools>
+        <li Class="CombatExtended.ToolCE">
+          <label>blade</label>
+          <capacities>
+            <li>Cut</li>
+          </capacities>
+          <power>12</power>
+          <cooldownTime>0.8</cooldownTime>
+          <armorPenetrationSharp>15</armorPenetrationSharp>
+          <armorPenetrationBlunt>5</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>BulletTranquilizer</def>
+              <amount>2</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+        <li Class="CombatExtended.ToolCE">
+          <label>point</label>
+          <capacities>
+            <li>Stab</li>
+          </capacities>
+          <power>10</power>
+          <cooldownTime>0.6</cooldownTime>
+          <armorPenetrationSharp>15</armorPenetrationSharp>
+          <armorPenetrationBlunt>5</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Point</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>BulletTranquilizer</def>
+              <amount>3</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+      </tools>
+    </value>
+  </Operation>
+
+
+  <!-- ========================================================= -->
+  <!-- KT_SealScythe — 「战利品」巨镰                             -->
+  <!-- 原始特效：两个 AOE 攻击均附带 EMP=50                       -->
+  <!-- 注：原版使用自定义容量 KT_Melee_AOE_II / KT_Melee_AOE，   -->
+  <!-- ToolCE 不支持自定义容量；改为 Cut + Blunt 保证功能正常     -->
+  <!-- ========================================================= -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="KT_SealScythe"]/tools</xpath>
+    <value>
+      <tools>
+        <li Class="CombatExtended.ToolCE">
+          <label>blade</label>
+          <capacities>
+            <li>Cut</li>
+          </capacities>
+          <power>50</power>
+          <cooldownTime>1.5</cooldownTime>
+          <armorPenetrationSharp>100</armorPenetrationSharp>
+          <armorPenetrationBlunt>40</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>50</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+        <li Class="CombatExtended.ToolCE">
+          <label>handle</label>
+          <capacities>
+            <li>Blunt</li>
+          </capacities>
+          <power>20</power>
+          <cooldownTime>1.2</cooldownTime>
+          <armorPenetrationBlunt>20</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>50</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+      </tools>
+    </value>
+  </Operation>
+
+  <!-- KT_SealScythe — equippedStatOffsets -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="KT_SealScythe"]/equippedStatOffsets</xpath>
+    <value>
+      <MeleeCounterParryBonus>0.8</MeleeCounterParryBonus>
+      <MeleeCritChance>0.6</MeleeCritChance>
+      <MeleeParryChance>0.3</MeleeParryChance>
+    </value>
+  </Operation>
+
+</Patch>

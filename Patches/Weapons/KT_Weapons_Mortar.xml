@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- ===== KT_Rumbler (Mortar Launcher) ===== -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Rumbler"]/verbs/li/verbClass</xpath>
+		<value>
+			<verbClass>Verb_Shoot</verbClass>
+		</value>
+	</Operation>
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Rumbler"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>12</power>
+					<cooldownTime>2.0</cooldownTime>
+					<armorPenetrationBlunt>8</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_Rumbler</defName>
+		<statBases>
+			<Mass>8.0</Mass>
+			<RangedWeapon_Cooldown>3.0</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.0</SightsEfficiency>
+			<ShotSpread>0.1</ShotSpread>
+			<SwayFactor>2.0</SwayFactor>
+			<Bulk>14.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>2.5</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_80mmMortarShell_HE</defaultProjectile>
+			<warmupTime>2.0</warmupTime>
+			<range>62</range>
+			<burstShotCount>3</burstShotCount>
+			<ticksBetweenBurstShots>20</ticksBetweenBurstShots>
+			<soundCast>Mortar_LaunchA</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>16</muzzleFlashScale>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+			</targetParams>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>6</magazineSize>
+			<reloadTime>8</reloadTime>
+			<ammoSet>AmmoSet_KT_80mmMortarShell</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiUseBurstMode>FALSE</aiUseBurstMode>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+		<weaponTags>
+			<li>CE_AI_AOE</li>
+		</weaponTags>
+	</Operation>
+
+</Patch>
