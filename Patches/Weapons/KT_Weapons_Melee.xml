@@ -118,43 +118,22 @@
 
   <!-- ========================================================= -->
   <!-- KT_ChainSword — 链锯剑（单体高频模式）                     -->
-  <!-- 原始特效：EMP=25, Stun=12                                  -->
+  <!-- 原版设计：超高频链锯 power=10, cooldown=0.1, EMP=25+Stun=12 -->
+  <!-- 单工具快速连击，通过 EMP+Stun 叠加控制敌人                  -->
   <!-- ========================================================= -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/ThingDef[defName="KT_ChainSword"]/tools</xpath>
     <value>
       <tools>
         <li Class="CombatExtended.ToolCE">
-          <label>teeth</label>
+          <label>edge</label>
           <capacities>
             <li>Cut</li>
           </capacities>
-          <power>35</power>
-          <cooldownTime>0.8</cooldownTime>
+          <power>10</power>
+          <cooldownTime>0.1</cooldownTime>
           <armorPenetrationSharp>80</armorPenetrationSharp>
           <armorPenetrationBlunt>30</armorPenetrationBlunt>
-          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
-          <extraMeleeDamages>
-            <li>
-              <def>EMP</def>
-              <amount>25</amount>
-            </li>
-            <li>
-              <def>Stun</def>
-              <amount>12</amount>
-            </li>
-          </extraMeleeDamages>
-        </li>
-        <li Class="CombatExtended.ToolCE">
-          <label>thrust</label>
-          <capacities>
-            <li>Stab</li>
-          </capacities>
-          <power>30</power>
-          <cooldownTime>0.6</cooldownTime>
-          <armorPenetrationSharp>80</armorPenetrationSharp>
-          <armorPenetrationBlunt>30</armorPenetrationBlunt>
-          <linkedBodyPartsGroup>Point</linkedBodyPartsGroup>
           <extraMeleeDamages>
             <li>
               <def>EMP</def>
