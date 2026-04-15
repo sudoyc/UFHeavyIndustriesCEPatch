@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ================================================================
+       变形武器 CE 弹丸 — 无弹药系统，直接作为 defaultProjectile 使用
+       Transform weapons: CE projectiles without ammo system.
+       KT_SealMG (海豹机枪) + KT_SealRailgun (海豹轨道炮)
+       ================================================================ -->
+
+  <!-- ==================== KT_SealMG — 海豹机枪 ========================== -->
+  <!-- 原弹丸: SRA.Projectile_BulletWithEffect (诅咒 hediff + 击中特效) -->
+  <!-- CE 方案: BulletCE + extraDamages(诅咒) + ProjectileEffectsExtension(特效) -->
+
+  <ThingDef ParentName="BaseBulletCE">
+    <defName>Bullet_KT_SealMG_CE</defName>
+    <label>KT Seal MG bullet</label>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_100MM</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+      <drawSize>1.2</drawSize>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>KT_SEALBullet</damageDef>
+      <damageAmountBase>35</damageAmountBase>
+      <armorPenetrationSharp>30</armorPenetrationSharp>
+      <armorPenetrationBlunt>5</armorPenetrationBlunt>
+      <speed>120</speed>
+      <extraDamages>
+        <li>
+          <def>KT_SealMG_curse</def>
+          <amount>24</amount>
+        </li>
+      </extraDamages>
+    </projectile>
+    <modExtensions>
+      <li Class="UFHeavyIndustries_CE.ProjectileEffectsExtension">
+        <impactEffecter>KT_SealMG_curse_Hit</impactEffecter>
+      </li>
+      <li Class="ProjectileImpactFX.EffectProjectileExtension">
+        <AutoAssign>false</AutoAssign>
+        <CreateTerrainEffects>false</CreateTerrainEffects>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+
+  <!-- ==================== KT_SealRailgun — 海豹轨道炮 ========================== -->
+  <!-- 原弹丸: ECT.Projectile_HeavyArmourPiercer (贯穿掠射+击退+闪电) -->
+  <!-- CE 方案: BulletCE + PenetrationCEExtension(掠射) + CompExplosiveCE(最终爆炸) -->
+
+  <ThingDef ParentName="BaseBulletCE">
+    <defName>Bullet_KT_SealRailgun_CE</defName>
+    <label>KT Seal railgun bolt</label>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_ElectromagneticCannon</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>MoteGlow</shaderType>
+      <drawSize>(2.5,7.5)</drawSize>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Bomb</damageDef>
+      <damageAmountBase>300</damageAmountBase>
+      <explosionRadius>2.5</explosionRadius>
+      <armorPenetrationSharp>500</armorPenetrationSharp>
+      <armorPenetrationBlunt>100</armorPenetrationBlunt>
+      <speed>300</speed>
+      <flyOverhead>true</flyOverhead>
+      <soundExplode>Explosion_Rocket</soundExplode>
+    </projectile>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <damageAmountBase>300</damageAmountBase>
+        <explosiveDamageType>Bomb</explosiveDamageType>
+        <explosiveRadius>2.5</explosiveRadius>
+        <explosionSound>Explosion_Rocket</explosionSound>
+        <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+      </li>
+    </comps>
+    <modExtensions>
+      <li Class="UFHeavyIndustries_CE.PenetrationCEExtension">
+        <hitWidthRadius>2.5</hitWidthRadius>
+        <maxHitsPerTarget>3</maxHitsPerTarget>
+        <knockbackDistance>7</knockbackDistance>
+        <stunDuration>150</stunDuration>
+        <skimHitSound>BulletImpact_Metal</skimHitSound>
+        <sparkFleckDef>Fleck_ImpactSpark</sparkFleckDef>
+        <sparkCountRange>
+          <min>10</min>
+          <max>15</max>
+        </sparkCountRange>
+        <sparkSpeedRange>
+          <min>50</min>
+          <max>75</max>
+        </sparkSpeedRange>
+        <sparkSpreadAngle>5</sparkSpreadAngle>
+        <lightningWidth>1.5</lightningWidth>
+        <lightningLength>6</lightningLength>
+        <lightningVariance>1</lightningVariance>
+        <lightningDuration>15</lightningDuration>
+        <lightningGrowthTicks>5</lightningGrowthTicks>
+      </li>
+      <li Class="ProjectileImpactFX.EffectProjectileExtension">
+        <AutoAssign>false</AutoAssign>
+        <CreateTerrainEffects>false</CreateTerrainEffects>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+</Defs>

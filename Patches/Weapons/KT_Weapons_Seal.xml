@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- =============================================================
+	     C 类变形武器 — CE 弹丸但无弹药系统
+	     Transform weapons: KT_SealMG + KT_SealRailgun
+	     These share a transform set with KT_SealScythe (melee, already
+	     patched in KT_Weapons_Melee.xml). They use CE projectiles
+	     (BulletCE) with custom extensions but NO ammo system.
+	     ============================================================= -->
+
+
+	<!-- ===== KT_SealMG — 海豹机枪 ===== -->
+	<!-- 变形武器 (机枪形态): 诅咒弹丸 + 击中特效 -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_SealMG"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>grip</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>10</power>
+					<cooldownTime>1.6</cooldownTime>
+					<armorPenetrationBlunt>5</armorPenetrationBlunt>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_SealMG</defName>
+		<statBases>
+			<Mass>4.5</Mass>
+			<RangedWeapon_Cooldown>0.3</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.0</SightsEfficiency>
+			<ShotSpread>0.10</ShotSpread>
+			<SwayFactor>1.3</SwayFactor>
+			<Bulk>7.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>1.2</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_SealMG_CE</defaultProjectile>
+			<warmupTime>0.8</warmupTime>
+			<range>45</range>
+			<burstShotCount>6</burstShotCount>
+			<ticksBetweenBurstShots>4</ticksBetweenBurstShots>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>9</muzzleFlashScale>
+		</Properties>
+		<!-- NO AmmoUser — 变形武器不使用弹药系统 -->
+		<FireModes>
+			<aimedBurstShotCount>3</aimedBurstShotCount>
+			<aiAimMode>Snapshot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+
+	<!-- ===== KT_SealRailgun — 海豹轨道炮 ===== -->
+	<!-- 变形武器 (轨道炮形态): 贯穿掠射 + 击退 + 闪电 -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_SealRailgun"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>12</power>
+					<cooldownTime>1.85</cooldownTime>
+					<armorPenetrationBlunt>6</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_SealRailgun</defName>
+		<statBases>
+			<Mass>6.0</Mass>
+			<RangedWeapon_Cooldown>2.5</RangedWeapon_Cooldown>
+			<SightsEfficiency>2.0</SightsEfficiency>
+			<ShotSpread>0.01</ShotSpread>
+			<SwayFactor>0.6</SwayFactor>
+			<Bulk>10.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>3.0</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_SealRailgun_CE</defaultProjectile>
+			<warmupTime>2.5</warmupTime>
+			<range>62</range>
+			<burstShotCount>1</burstShotCount>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>16</muzzleFlashScale>
+		</Properties>
+		<!-- NO AmmoUser — 变形武器不使用弹药系统 -->
+		<FireModes>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+</Patch>
