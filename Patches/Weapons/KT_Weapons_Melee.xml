@@ -365,13 +365,15 @@
     </value>
   </Operation>
 
-  <!-- KT_SealScythe — equippedStatOffsets -->
+  <!-- KT_SealScythe — equippedStatOffsets (node doesn't exist in original, add whole block) -->
   <Operation Class="PatchOperationAdd">
-    <xpath>Defs/ThingDef[defName="KT_SealScythe"]/equippedStatOffsets</xpath>
+    <xpath>Defs/ThingDef[defName="KT_SealScythe"]</xpath>
     <value>
-      <MeleeCounterParryBonus>0.8</MeleeCounterParryBonus>
-      <MeleeCritChance>0.6</MeleeCritChance>
-      <MeleeParryChance>0.3</MeleeParryChance>
+      <equippedStatOffsets>
+        <MeleeCounterParryBonus>0.8</MeleeCounterParryBonus>
+        <MeleeCritChance>0.6</MeleeCritChance>
+        <MeleeParryChance>0.3</MeleeParryChance>
+      </equippedStatOffsets>
     </value>
   </Operation>
 

@@ -43,16 +43,11 @@
     <stackLimit>5000</stackLimit>
   </ThingDef>
 
-  <!-- ================== Projectiles (CE LaserBeam system) ================== -->
+  <!-- ================== Projectiles (LaserBeamCE + Harmony mote patch) ================== -->
 
   <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseLaserBullet">
     <defName>Bullet_KT_LaserArrayCell</defName>
     <label>KT laser array beam</label>
-    <textures>
-      <li>Things/Mote/Mote_KT_flashlight</li>
-    </textures>
-    <beamWidth>0.4</beamWidth>
-    <lifetime>3</lifetime>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageDef>CE_Laser</damageDef>
       <isInstant>true</isInstant>
@@ -62,6 +57,17 @@
       <armorPenetrationSharp>45</armorPenetrationSharp>
       <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
     </projectile>
+    <modExtensions Inherit="False">
+      <li Class="UFHeavyIndustries_CE.BeamMoteExtension">
+        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
+        <beamStartOffset>0.5</beamStartOffset>
+        <impactEffecter>KT_Laserhit</impactEffecter>
+      </li>
+      <li Class="ProjectileImpactFX.EffectProjectileExtension">
+        <AutoAssign>false</AutoAssign>
+        <CreateTerrainEffects>false</CreateTerrainEffects>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <!-- ==================== Recipes ========================== -->

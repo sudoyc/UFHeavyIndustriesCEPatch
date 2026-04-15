@@ -15,7 +15,7 @@
     <label>KT 80mm Mortar Shell</label>
     <ammoTypes>
       <Ammo_KT_80mmMortarShell_HE>Bullet_KT_80mmMortarShell_HE</Ammo_KT_80mmMortarShell_HE>
-      <Ammo_KT_80mmMortarShell_Toxic>Bullet_KT_80mmMortarShell_Toxic</Ammo_KT_80mmMortarShell_Toxic>
+      <Ammo_KT_80mmMortarShell_Toxic MayRequire="Ludeon.RimWorld.Biotech">Bullet_KT_80mmMortarShell_Toxic</Ammo_KT_80mmMortarShell_Toxic>
     </ammoTypes>
   </CombatExtended.AmmoSetDef>
 
@@ -41,20 +41,20 @@
     <defName>Ammo_KT_80mmMortarShell_HE</defName>
     <label>80mm mortar shell (HE)</label>
     <graphicData>
-      <texPath>Things/Ammo/MortarShell/HE</texPath>
+      <texPath>Things/Ammo/Mortar/HE</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
     <ammoClass>GrenadeHE</ammoClass>
   </ThingDef>
 
-  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_80mmMortarShellBase">
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_80mmMortarShellBase" MayRequire="Ludeon.RimWorld.Biotech">
     <defName>Ammo_KT_80mmMortarShell_Toxic</defName>
     <label>80mm mortar shell (Toxic)</label>
     <graphicData>
-      <texPath>Things/Ammo/MortarShell/Antigrain</texPath>
+      <texPath>Things/Ammo/Mortar/Toxic</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
-    <ammoClass>GrenadeToxic</ammoClass>
+    <ammoClass>Toxic</ammoClass>
   </ThingDef>
 
   <!-- ================== Projectiles ================== -->
@@ -83,7 +83,7 @@
     </projectile>
   </ThingDef>
 
-  <ThingDef ParentName="BaseExplosiveBullet">
+  <ThingDef ParentName="BaseExplosiveBullet" MayRequire="Ludeon.RimWorld.Biotech">
     <defName>Bullet_KT_80mmMortarShell_Toxic</defName>
     <thingClass>CombatExtended.ProjectileCE_Explosive</thingClass>
     <label>80mm mortar shell (Toxic)</label>
@@ -104,8 +104,7 @@
       <soundImpactAnticipate>MortarRound_PreImpact</soundImpactAnticipate>
       <soundAmbient>MortarRound_Ambient</soundAmbient>
       <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
-      <postExplosionSpawnThingDef>Gas_Toxic</postExplosionSpawnThingDef>
-      <postExplosionSpawnChance>1</postExplosionSpawnChance>
+      <postExplosionGasType>ToxGas</postExplosionGasType>
     </projectile>
   </ThingDef>
 
@@ -149,7 +148,7 @@
     <workAmount>8000</workAmount>
   </RecipeDef>
 
-  <RecipeDef ParentName="LauncherAmmoRecipeBase">
+  <RecipeDef ParentName="LauncherAmmoRecipeBase" MayRequire="Ludeon.RimWorld.Biotech">
     <defName>MakeAmmo_KT_80mmMortarShell_Toxic</defName>
     <label>make 80mm mortar shell (Toxic) x5</label>
     <description>Craft 5 80mm mortar shells (Toxic).</description>
@@ -169,7 +168,7 @@
       </li>
       <li>
         <filter>
-          <thingDefs><li>HerbalMedicine</li></thingDefs>
+          <thingDefs><li>MedicineHerbal</li></thingDefs>
         </filter>
         <count>5</count>
       </li>
@@ -184,7 +183,7 @@
       <thingDefs>
         <li>Steel</li>
         <li>Chemfuel</li>
-        <li>HerbalMedicine</li>
+        <li>MedicineHerbal</li>
         <li>ComponentIndustrial</li>
       </thingDefs>
     </fixedIngredientFilter>

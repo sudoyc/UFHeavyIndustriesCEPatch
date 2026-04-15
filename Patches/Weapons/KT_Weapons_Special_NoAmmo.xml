@@ -269,6 +269,7 @@
 			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
 			<hasStandardCommand>true</hasStandardCommand>
 			<defaultProjectile>Bullet_KT_DoomLauncher</defaultProjectile>
+			<forcedMissRadius>3.5</forcedMissRadius>
 			<warmupTime>4.0</warmupTime>
 			<range>45</range>
 			<burstShotCount>1</burstShotCount>
@@ -384,6 +385,7 @@
 			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
 			<hasStandardCommand>true</hasStandardCommand>
 			<defaultProjectile>Bullet_KT_WSGW</defaultProjectile>
+			<forcedMissRadius>1.5</forcedMissRadius>
 			<warmupTime>2.5</warmupTime>
 			<range>62</range>
 			<burstShotCount>1</burstShotCount>

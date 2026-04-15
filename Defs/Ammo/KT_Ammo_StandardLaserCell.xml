@@ -70,18 +70,24 @@
     <generateAllowChance>0.15</generateAllowChance>
   </ThingDef>
 
-  <!-- ================== Projectiles (CE LaserBeam system) ================== -->
+  <!-- ================== Projectiles (LaserBeamCE + Harmony mote patch) ================== -->
 
   <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" Name="BaseKT_StandardLaserCellBeam" ParentName="BaseLaserBullet" Abstract="true">
-    <textures>
-      <li>Things/Mote/Mote_KT_flashlight</li>
-    </textures>
-    <beamWidth>0.7</beamWidth>
-    <lifetime>4</lifetime>
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageDef>CE_Laser</damageDef>
       <isInstant>true</isInstant>
     </projectile>
+    <modExtensions Inherit="False">
+      <li Class="UFHeavyIndustries_CE.BeamMoteExtension">
+        <beamMoteDef>KT_Beamflashlight</beamMoteDef>
+        <beamStartOffset>0.5</beamStartOffset>
+        <impactEffecter>KT_Laserhit</impactEffecter>
+      </li>
+      <li Class="ProjectileImpactFX.EffectProjectileExtension">
+        <AutoAssign>false</AutoAssign>
+        <CreateTerrainEffects>false</CreateTerrainEffects>
+      </li>
+    </modExtensions>
   </ThingDef>
 
   <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseKT_StandardLaserCellBeam">
