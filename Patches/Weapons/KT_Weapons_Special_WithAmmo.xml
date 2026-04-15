@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+
+	<!-- =============================================================
+	     A 类特殊武器 — CE 弹丸 + 弹药系统
+	     Special weapons with full CE projectile conversion + ammo.
+	     Original SRA/ECT mechanics replicated via DefModExtension
+	     + Harmony hooks on the CE projectiles.
+	     ============================================================= -->
+
+
+	<!-- ===== KT_WSGW — 手持舰炮 ===== -->
+	<!-- 原弹丸: Projectile_Explosive (vanilla, 无特殊机制) -->
+	<!-- CE: ProjectileCE_Explosive + AmmoSet (HE/HEAT) -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_WSGW"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>20</power>
+					<cooldownTime>2.5</cooldownTime>
+					<armorPenetrationBlunt>15</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_WSGW</defName>
+		<statBases>
+			<Mass>18.0</Mass>
+			<RangedWeapon_Cooldown>3.5</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.0</SightsEfficiency>
+			<ShotSpread>0.06</ShotSpread>
+			<SwayFactor>2.5</SwayFactor>
+			<Bulk>22.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>4.0</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_NavalShell_HE</defaultProjectile>
+			<forcedMissRadius>1.5</forcedMissRadius>
+			<warmupTime>2.5</warmupTime>
+			<range>62</range>
+			<burstShotCount>1</burstShotCount>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+			</targetParams>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>3</magazineSize>
+			<reloadTime>6</reloadTime>
+			<ammoSet>AmmoSet_KT_NavalShell</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+		<weaponTags>
+			<li>CE_AI_AOE</li>
+		</weaponTags>
+	</Operation>
+
+
+	<!-- ===== KT_DoomLauncher — 湮灭发射器 ===== -->
+	<!-- 原弹丸: Projectile_Explosive (vanilla, 无特殊机制) -->
+	<!-- CE: ProjectileCE_Explosive + AmmoSet (单一) -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_DoomLauncher"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>15</power>
+					<cooldownTime>2.0</cooldownTime>
+					<armorPenetrationBlunt>10</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_DoomLauncher</defName>
+		<statBases>
+			<Mass>10.0</Mass>
+			<RangedWeapon_Cooldown>8.0</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.0</SightsEfficiency>
+			<ShotSpread>0.05</ShotSpread>
+			<SwayFactor>2.0</SwayFactor>
+			<Bulk>16.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>4.0</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_DoomShell</defaultProjectile>
+			<forcedMissRadius>3.5</forcedMissRadius>
+			<warmupTime>4.0</warmupTime>
+			<range>45</range>
+			<burstShotCount>1</burstShotCount>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>20</muzzleFlashScale>
+			<targetParams>
+				<canTargetLocations>true</canTargetLocations>
+			</targetParams>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>1</magazineSize>
+			<reloadTime>12</reloadTime>
+			<ammoSet>AmmoSet_KT_DoomShell</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+		<weaponTags>
+			<li>CE_AI_AOE</li>
+		</weaponTags>
+	</Operation>
+
+
+	<!-- ===== KT_Splitter_Gun — 等离子分裂炮 ===== -->
+	<!-- 原弹丸: SRA.Projectile_MultiExplosive (多重爆炸+无友伤+子弹散射) -->
+	<!-- CE: ProjectileCE_Explosive + MultiExplosionCEExtension + ProjectileEffectsExtension -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Splitter_Gun"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>12</power>
+					<cooldownTime>1.85</cooldownTime>
+					<armorPenetrationBlunt>6</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+				<li Class="CombatExtended.ToolCE">
+					<label>muzzle</label>
+					<capacities>
+						<li>Poke</li>
+					</capacities>
+					<power>10</power>
+					<cooldownTime>1.2</cooldownTime>
+					<armorPenetrationBlunt>6</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Muzzle</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_Splitter_Gun</defName>
+		<statBases>
+			<Mass>5.5</Mass>
+			<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.1</SightsEfficiency>
+			<ShotSpread>0.08</ShotSpread>
+			<SwayFactor>1.3</SwayFactor>
+			<Bulk>9.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>1.8</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_PlasmaSplitterCell</defaultProjectile>
+			<warmupTime>1.5</warmupTime>
+			<range>45</range>
+			<burstShotCount>1</burstShotCount>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>14</muzzleFlashScale>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>6</magazineSize>
+			<reloadTime>4</reloadTime>
+			<ammoSet>AmmoSet_KT_PlasmaSplitterCell</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+
+	<!-- ===== KT_SPEAR — 矛枪 ===== -->
+	<!-- 原弹丸: SRA.Projectile_MultiExplosive_Beam (光束+多重爆炸) -->
+	<!-- CE: LaserBeamCE + BeamMoteExtension + CompExplosiveCE -->
+	<!-- 近战: 双 AOE (KT_Melee_AOE_II + KT_Melee_AOE) — 已修复 -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_SPEAR"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>edge</label>
+					<capacities>
+						<li>KT_Melee_AOE_II</li>
+					</capacities>
+					<power>150</power>
+					<cooldownTime>1.2</cooldownTime>
+					<armorPenetrationSharp>80</armorPenetrationSharp>
+					<armorPenetrationBlunt>30</armorPenetrationBlunt>
+					<extraMeleeDamages>
+						<li>
+							<def>EMP</def>
+							<amount>25</amount>
+						</li>
+					</extraMeleeDamages>
+				</li>
+				<li Class="CombatExtended.ToolCE">
+					<label>edge</label>
+					<capacities>
+						<li>KT_Melee_AOE</li>
+					</capacities>
+					<power>120</power>
+					<cooldownTime>0.8</cooldownTime>
+					<armorPenetrationSharp>80</armorPenetrationSharp>
+					<armorPenetrationBlunt>30</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+					<ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
+					<extraMeleeDamages>
+						<li>
+							<def>EMP</def>
+							<amount>25</amount>
+						</li>
+					</extraMeleeDamages>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_SPEAR</defName>
+		<statBases>
+			<Mass>4.0</Mass>
+			<RangedWeapon_Cooldown>1.2</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.3</SightsEfficiency>
+			<ShotSpread>0.04</ShotSpread>
+			<SwayFactor>0.9</SwayFactor>
+			<Bulk>7.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>1.5</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_SpearEnergyCell</defaultProjectile>
+			<warmupTime>1.5</warmupTime>
+			<range>62</range>
+			<burstShotCount>1</burstShotCount>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>12</muzzleFlashScale>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>4</magazineSize>
+			<reloadTime>3</reloadTime>
+			<ammoSet>AmmoSet_KT_SpearEnergyCell</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+
+	<!-- ===== KT_Special_SMG — 摄金冲锋枪 ===== -->
+	<!-- 原弹丸: SRA.Projectile_BulletWithEffect (命中叠 hediff + 水晶击中特效) -->
+	<!-- CE: BulletCE + extraDamages(hediff) + ProjectileEffectsExtension(特效) -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Special_SMG"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>grip</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>8</power>
+					<cooldownTime>1.6</cooldownTime>
+					<armorPenetrationBlunt>4</armorPenetrationBlunt>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_Special_SMG</defName>
+		<statBases>
+			<Mass>2.5</Mass>
+			<RangedWeapon_Cooldown>0.25</RangedWeapon_Cooldown>
+			<SightsEfficiency>0.9</SightsEfficiency>
+			<ShotSpread>0.14</ShotSpread>
+			<SwayFactor>1.2</SwayFactor>
+			<Bulk>3.5</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>1.4</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_CrystalRound</defaultProjectile>
+			<warmupTime>0.5</warmupTime>
+			<range>25</range>
+			<burstShotCount>6</burstShotCount>
+			<ticksBetweenBurstShots>4</ticksBetweenBurstShots>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>9</muzzleFlashScale>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>30</magazineSize>
+			<reloadTime>3</reloadTime>
+			<ammoSet>AmmoSet_KT_CrystalRound</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aimedBurstShotCount>3</aimedBurstShotCount>
+			<aiAimMode>Snapshot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+
+	<!-- ===== KT_Assassingun — 安倍切 ===== -->
+	<!-- 原弹丸: vanilla Bullet (无特殊机制) -->
+	<!-- CE: BulletCE + AmmoSet (标准/AP) -->
+	<!-- 原版特征: burstShotCount=2, range=12, warmupTime=0 (近距离双连射) -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Assassingun"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>10</power>
+					<cooldownTime>2.0</cooldownTime>
+					<armorPenetrationBlunt>5</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_Assassingun</defName>
+		<statBases>
+			<Mass>2.0</Mass>
+			<RangedWeapon_Cooldown>1.5</RangedWeapon_Cooldown>
+			<SightsEfficiency>0.5</SightsEfficiency>
+			<ShotSpread>0.4</ShotSpread>
+			<SwayFactor>2.0</SwayFactor>
+			<Bulk>4.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>3.5</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_AssassinSlug</defaultProjectile>
+			<warmupTime>0</warmupTime>
+			<range>15</range>
+			<burstShotCount>2</burstShotCount>
+			<ticksBetweenBurstShots>6</ticksBetweenBurstShots>
+			<soundCast>Shot_Shotgun</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>40</muzzleFlashScale>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>4</magazineSize>
+			<reloadTime>2</reloadTime>
+			<ammoSet>AmmoSet_KT_AssassinSlug</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiAimMode>Snapshot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+
+	<!-- ===== KT_Tranquilizer — 麻醉步枪 ===== -->
+	<!-- 原弹丸: vanilla Bullet (BulletTranquilizer damageDef) -->
+	<!-- CE: BulletCE + AmmoSet (麻醉弹) -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Tranquilizer"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>stock</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>10</power>
+					<cooldownTime>1.85</cooldownTime>
+					<armorPenetrationBlunt>5</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+				</li>
+				<li Class="CombatExtended.ToolCE">
+					<label>muzzle</label>
+					<capacities>
+						<li>Poke</li>
+					</capacities>
+					<power>8</power>
+					<cooldownTime>1.2</cooldownTime>
+					<armorPenetrationBlunt>4</armorPenetrationBlunt>
+					<linkedBodyPartsGroup>Muzzle</linkedBodyPartsGroup>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_Tranquilizer</defName>
+		<statBases>
+			<Mass>3.5</Mass>
+			<RangedWeapon_Cooldown>0.8</RangedWeapon_Cooldown>
+			<SightsEfficiency>1.0</SightsEfficiency>
+			<ShotSpread>0.06</ShotSpread>
+			<SwayFactor>1.0</SwayFactor>
+			<Bulk>6.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>1.0</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_TranqDart</defaultProjectile>
+			<warmupTime>1.5</warmupTime>
+			<range>35</range>
+			<burstShotCount>1</burstShotCount>
+			<soundCast>Shot_ChargeBlaster</soundCast>
+			<soundCastTail>GunTail_Heavy</soundCastTail>
+			<muzzleFlashScale>6</muzzleFlashScale>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>5</magazineSize>
+			<reloadTime>3</reloadTime>
+			<ammoSet>AmmoSet_KT_TranqDart</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+
+	<!-- ===== KT_Bow_Great — 巨弓 ===== -->
+	<!-- 原弹丸: vanilla Projectile (Arrow) -->
+	<!-- CE: BulletCE + AmmoSet (巨箭) -->
+
+	<Operation Class="PatchOperationReplace">
+		<xpath>Defs/ThingDef[defName="KT_Bow_Great"]/tools</xpath>
+		<value>
+			<tools>
+				<li Class="CombatExtended.ToolCE">
+					<label>limb</label>
+					<capacities>
+						<li>Blunt</li>
+					</capacities>
+					<power>8</power>
+					<cooldownTime>2.0</cooldownTime>
+					<armorPenetrationBlunt>4</armorPenetrationBlunt>
+				</li>
+			</tools>
+		</value>
+	</Operation>
+
+	<Operation Class="CombatExtended.PatchOperationMakeGunCECompatible">
+		<defName>KT_Bow_Great</defName>
+		<statBases>
+			<Mass>3.0</Mass>
+			<RangedWeapon_Cooldown>2.0</RangedWeapon_Cooldown>
+			<SightsEfficiency>0.8</SightsEfficiency>
+			<ShotSpread>0.05</ShotSpread>
+			<SwayFactor>1.5</SwayFactor>
+			<Bulk>8.0</Bulk>
+		</statBases>
+		<Properties>
+			<recoilAmount>2.0</recoilAmount>
+			<verbClass>CombatExtended.Verb_ShootCE</verbClass>
+			<hasStandardCommand>true</hasStandardCommand>
+			<defaultProjectile>Bullet_KT_GreatArrow</defaultProjectile>
+			<warmupTime>2.5</warmupTime>
+			<range>45</range>
+			<burstShotCount>1</burstShotCount>
+			<soundCast>Bow_Large</soundCast>
+			<soundCastTail>GunTail_Light</soundCastTail>
+			<muzzleFlashScale>0</muzzleFlashScale>
+		</Properties>
+		<AmmoUser>
+			<magazineSize>1</magazineSize>
+			<reloadTime>0.5</reloadTime>
+			<ammoSet>AmmoSet_KT_GreatArrow</ammoSet>
+		</AmmoUser>
+		<FireModes>
+			<aiAimMode>AimedShot</aiAimMode>
+		</FireModes>
+	</Operation>
+
+</Patch>
