@@ -182,28 +182,38 @@
 
   <!-- ========================================================= -->
   <!-- KT_ChainSword_AOE — 链锯剑（劈砍 AOE 模式）               -->
-  <!-- 原始特效：Heavy crosscut EMP=10；保留第二工具 edge          -->
+  <!-- 原始 AOE：KT_Melee_AOE_yellow (180°, r2.0, 6目标, 黄色斩弧) -->
+  <!-- 保留原版双工具：AOE 重斩 + 普通 Cut                        -->
   <!-- ========================================================= -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/ThingDef[defName="KT_ChainSword_AOE"]/tools</xpath>
     <value>
       <tools>
         <li Class="CombatExtended.ToolCE">
-          <label>sweep</label>
+          <label>Heavy crosscut</label>
           <capacities>
-            <li>Cut</li>
+            <li>KT_Melee_AOE_yellow</li>
           </capacities>
-          <power>40</power>
-          <cooldownTime>1.5</cooldownTime>
+          <power>180</power>
+          <cooldownTime>1.2</cooldownTime>
           <armorPenetrationSharp>60</armorPenetrationSharp>
           <armorPenetrationBlunt>25</armorPenetrationBlunt>
-          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
           <extraMeleeDamages>
             <li>
               <def>EMP</def>
               <amount>10</amount>
             </li>
           </extraMeleeDamages>
+        </li>
+        <li Class="CombatExtended.ToolCE">
+          <label>edge</label>
+          <capacities>
+            <li>Cut</li>
+          </capacities>
+          <power>50</power>
+          <cooldownTime>0.8</cooldownTime>
+          <armorPenetrationSharp>60</armorPenetrationSharp>
+          <armorPenetrationBlunt>25</armorPenetrationBlunt>
         </li>
       </tools>
     </value>
@@ -220,21 +230,22 @@
 
   <!-- ========================================================= -->
   <!-- KT_Hammer — 动力锤                                        -->
-  <!-- 原始特效：handle EMP=15 (Poke), head EMP=15 (AOE)         -->
+  <!-- 原始 handle: Poke EMP=15; head: KT_Melee_hammer_AOE       -->
+  <!-- (240°, r2.0, 6目标, 无特效) EMP=15                        -->
   <!-- ========================================================= -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/ThingDef[defName="KT_Hammer"]/tools</xpath>
     <value>
       <tools>
         <li Class="CombatExtended.ToolCE">
-          <label>head</label>
+          <label>handle</label>
           <capacities>
-            <li>Blunt</li>
+            <li>Poke</li>
           </capacities>
-          <power>45</power>
-          <cooldownTime>2.0</cooldownTime>
-          <armorPenetrationBlunt>120</armorPenetrationBlunt>
-          <linkedBodyPartsGroup>Head</linkedBodyPartsGroup>
+          <power>120</power>
+          <cooldownTime>1.5</cooldownTime>
+          <armorPenetrationSharp>15</armorPenetrationSharp>
+          <armorPenetrationBlunt>30</armorPenetrationBlunt>
           <extraMeleeDamages>
             <li>
               <def>EMP</def>
@@ -243,14 +254,15 @@
           </extraMeleeDamages>
         </li>
         <li Class="CombatExtended.ToolCE">
-          <label>handle</label>
+          <label>head</label>
+          <labelUsedInLogging>false</labelUsedInLogging>
           <capacities>
-            <li>Blunt</li>
+            <li>KT_Melee_hammer_AOE</li>
           </capacities>
-          <power>15</power>
-          <cooldownTime>1.5</cooldownTime>
-          <armorPenetrationBlunt>30</armorPenetrationBlunt>
-          <linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+          <power>160</power>
+          <cooldownTime>2.2</cooldownTime>
+          <armorPenetrationSharp>30</armorPenetrationSharp>
+          <armorPenetrationBlunt>120</armorPenetrationBlunt>
           <extraMeleeDamages>
             <li>
               <def>EMP</def>
@@ -320,24 +332,24 @@
 
   <!-- ========================================================= -->
   <!-- KT_SealScythe — 「战利品」巨镰                             -->
-  <!-- 原始特效：两个 AOE 攻击均附带 EMP=50                       -->
-  <!-- 注：原版使用自定义容量 KT_Melee_AOE_II / KT_Melee_AOE，   -->
-  <!-- ToolCE 不支持自定义容量；改为 Cut + Blunt 保证功能正常     -->
+  <!-- 原始双 AOE 工具：                                          -->
+  <!--   edge1: KT_Melee_AOE_II (120°, r2.5, 8目标, KT_SlashArc_Big) -->
+  <!--   edge2: KT_Melee_AOE (240°, r1.5, 6目标, KT_SlashArc)   -->
+  <!-- 两者均附带 EMP=50                                          -->
   <!-- ========================================================= -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/ThingDef[defName="KT_SealScythe"]/tools</xpath>
     <value>
       <tools>
         <li Class="CombatExtended.ToolCE">
-          <label>blade</label>
+          <label>edge</label>
           <capacities>
-            <li>Cut</li>
+            <li>KT_Melee_AOE_II</li>
           </capacities>
-          <power>50</power>
-          <cooldownTime>1.5</cooldownTime>
+          <power>100</power>
+          <cooldownTime>0.3</cooldownTime>
           <armorPenetrationSharp>100</armorPenetrationSharp>
           <armorPenetrationBlunt>40</armorPenetrationBlunt>
-          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
           <extraMeleeDamages>
             <li>
               <def>EMP</def>
@@ -346,14 +358,16 @@
           </extraMeleeDamages>
         </li>
         <li Class="CombatExtended.ToolCE">
-          <label>handle</label>
+          <label>edge</label>
           <capacities>
-            <li>Blunt</li>
+            <li>KT_Melee_AOE</li>
           </capacities>
-          <power>20</power>
-          <cooldownTime>1.2</cooldownTime>
-          <armorPenetrationBlunt>20</armorPenetrationBlunt>
-          <linkedBodyPartsGroup>Stock</linkedBodyPartsGroup>
+          <power>120</power>
+          <cooldownTime>0.4</cooldownTime>
+          <armorPenetrationSharp>100</armorPenetrationSharp>
+          <armorPenetrationBlunt>40</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>HeadAttackTool</linkedBodyPartsGroup>
+          <ensureLinkedBodyPartsGroupAlwaysUsable>true</ensureLinkedBodyPartsGroupAlwaysUsable>
           <extraMeleeDamages>
             <li>
               <def>EMP</def>
@@ -380,9 +394,8 @@
 
   <!-- ========================================================= -->
   <!-- KT_Folding_fan — 折叠扇                                    -->
-  <!-- 原始特效：KT_Melee_AOE_pink (power=90, EMP=20)             -->
-  <!-- 注：原版使用自定义容量 KT_Melee_AOE_pink，                   -->
-  <!-- ToolCE 不支持自定义容量；改为 Cut 保证功能正常               -->
+  <!-- 原始特效：KT_Melee_AOE_pink (180°, r1.5, 6目标, 粉色斩弧) -->
+  <!-- 保留原版 SRA AOE 容量 + ToolCE 穿甲值                      -->
   <!-- ========================================================= -->
   <Operation Class="PatchOperationReplace">
     <xpath>Defs/ThingDef[defName="KT_Folding_fan"]/tools</xpath>
@@ -391,13 +404,12 @@
         <li Class="CombatExtended.ToolCE">
           <label>edge</label>
           <capacities>
-            <li>Cut</li>
+            <li>KT_Melee_AOE_pink</li>
           </capacities>
           <power>90</power>
           <cooldownTime>0.2</cooldownTime>
           <armorPenetrationSharp>80</armorPenetrationSharp>
           <armorPenetrationBlunt>30</armorPenetrationBlunt>
-          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
           <extraMeleeDamages>
             <li>
               <def>EMP</def>
