@@ -71,4 +71,90 @@
     <description>Overcharged plasma cell with massive EMP burst.</description>
   </CombatExtended.AmmoCategoryDef>
 
+  <!-- Naval Shell (KT_WSGW) -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_NavalShellHE</defName>
+    <label>KT naval HE</label>
+    <description>High-explosive naval shell for handheld ship cannon.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_NavalShellHEAT</defName>
+    <label>KT naval HEAT</label>
+    <labelShort>HEAT</labelShort>
+    <description>Shaped-charge naval shell with enhanced armor penetration.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Doom Shell (KT_DoomLauncher) -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_DoomShell</defName>
+    <label>KT doom shell</label>
+    <description>Annihilation warhead for the Doom Launcher.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Plasma Splitter (KT_Splitter_Gun) -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_PlasmaSplitter</defName>
+    <label>KT plasma splitter</label>
+    <description>Plasma cell that splits into multiple sub-munitions on impact.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_PlasmaSplitterFocused</defName>
+    <label>KT plasma splitter (focused)</label>
+    <labelShort>focused</labelShort>
+    <description>Focused plasma splitter cell with higher penetration, no scatter.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Spear Energy Cell (KT_SPEAR) -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_SpearEnergy</defName>
+    <label>KT spear energy</label>
+    <description>Energy cell for the KT Spear beam weapon.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_SpearEnergyAP</defName>
+    <label>KT spear energy (AP)</label>
+    <labelShort>AP</labelShort>
+    <description>Armor-piercing spear energy cell.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Crystal Round (KT_Special_SMG) -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_CrystalRound</defName>
+    <label>KT crystal round</label>
+    <description>Crystal-infused bullet that accumulates debuffs on target.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_CrystalRoundAP</defName>
+    <label>KT crystal round (AP)</label>
+    <labelShort>AP</labelShort>
+    <description>Armor-piercing crystal round.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Assassin Slug (KT_Assassingun) -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_AssassinSlug</defName>
+    <label>KT assassin slug</label>
+    <description>Devastating close-range slug round.</description>
+  </CombatExtended.AmmoCategoryDef>
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_AssassinSlugAP</defName>
+    <label>KT assassin slug (AP)</label>
+    <labelShort>AP</labelShort>
+    <description>Armor-piercing assassin slug.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Tranq Dart (KT_Tranquilizer) -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_TranqDart</defName>
+    <label>KT tranq dart</label>
+    <description>Tranquilizer dart for the KT sedation rifle.</description>
+  </CombatExtended.AmmoCategoryDef>
+
+  <!-- Great Arrow (KT_Bow_Great) -->
+  <CombatExtended.AmmoCategoryDef>
+    <defName>KT_GreatArrow</defName>
+    <label>KT great arrow</label>
+    <description>Oversized arrow for the Great Bow.</description>
+  </CombatExtended.AmmoCategoryDef>
+
 </Defs>
