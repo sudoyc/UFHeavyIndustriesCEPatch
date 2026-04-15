@@ -377,4 +377,45 @@
     </value>
   </Operation>
 
+
+  <!-- ========================================================= -->
+  <!-- KT_Folding_fan — 折叠扇                                    -->
+  <!-- 原始特效：KT_Melee_AOE_pink (power=90, EMP=20)             -->
+  <!-- 注：原版使用自定义容量 KT_Melee_AOE_pink，                   -->
+  <!-- ToolCE 不支持自定义容量；改为 Cut 保证功能正常               -->
+  <!-- ========================================================= -->
+  <Operation Class="PatchOperationReplace">
+    <xpath>Defs/ThingDef[defName="KT_Folding_fan"]/tools</xpath>
+    <value>
+      <tools>
+        <li Class="CombatExtended.ToolCE">
+          <label>edge</label>
+          <capacities>
+            <li>Cut</li>
+          </capacities>
+          <power>90</power>
+          <cooldownTime>0.2</cooldownTime>
+          <armorPenetrationSharp>80</armorPenetrationSharp>
+          <armorPenetrationBlunt>30</armorPenetrationBlunt>
+          <linkedBodyPartsGroup>Edge</linkedBodyPartsGroup>
+          <extraMeleeDamages>
+            <li>
+              <def>EMP</def>
+              <amount>20</amount>
+            </li>
+          </extraMeleeDamages>
+        </li>
+      </tools>
+    </value>
+  </Operation>
+
+  <!-- KT_Folding_fan — equippedStatOffsets: add CE melee stats -->
+  <Operation Class="PatchOperationAdd">
+    <xpath>Defs/ThingDef[defName="KT_Folding_fan"]/equippedStatOffsets</xpath>
+    <value>
+      <MeleeCounterParryBonus>1.0</MeleeCounterParryBonus>
+      <MeleeCritChance>0.8</MeleeCritChance>
+    </value>
+  </Operation>
+
 </Patch>
