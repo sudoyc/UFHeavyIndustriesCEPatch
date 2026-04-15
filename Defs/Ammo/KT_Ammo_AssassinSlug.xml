@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingCategoryDef>
+    <defName>AmmoKT_AssassinSlug</defName>
+    <label>KT Assassin Slug</label>
+    <parent>AmmoAdvanced</parent>
+    <iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
+  </ThingCategoryDef>
+
+  <!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_KT_AssassinSlug</defName>
+    <label>KT Assassin Slug</label>
+    <ammoTypes>
+      <Ammo_KT_AssassinSlug>Bullet_KT_AssassinSlug</Ammo_KT_AssassinSlug>
+      <Ammo_KT_AssassinSlug_AP>Bullet_KT_AssassinSlug_AP</Ammo_KT_AssassinSlug_AP>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+
+  <!-- ==================== Ammo ========================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" Name="KT_AssassinSlugBase" ParentName="SpacerMediumAmmoBase" Abstract="True">
+    <description>High-caliber slug round for the KT Assassin scattergun.</description>
+    <statBases>
+      <Mass>0.05</Mass>
+      <Bulk>0.07</Bulk>
+    </statBases>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_FabricationBench</li>
+    </tradeTags>
+    <thingCategories>
+      <li>AmmoKT_AssassinSlug</li>
+    </thingCategories>
+    <stackLimit>500</stackLimit>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_AssassinSlugBase">
+    <defName>Ammo_KT_AssassinSlug</defName>
+    <label>KT assassin slug</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeRegular</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>KT_AssassinSlug</ammoClass>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_AssassinSlugBase">
+    <defName>Ammo_KT_AssassinSlug_AP</defName>
+    <label>KT assassin slug (AP)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeConc</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>KT_AssassinSlugAP</ammoClass>
+    <generateAllowChance>0.15</generateAllowChance>
+  </ThingDef>
+
+  <!-- ================== Projectiles ================== -->
+
+  <ThingDef Name="BaseKT_AssassinSlugBullet" ParentName="BaseBulletCE" Abstract="true">
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_Big</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Bullet</damageDef>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseKT_AssassinSlugBullet">
+    <defName>Bullet_KT_AssassinSlug</defName>
+    <label>KT assassin slug</label>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageAmountBase>200</damageAmountBase>
+      <speed>120</speed>
+      <armorPenetrationSharp>40</armorPenetrationSharp>
+      <armorPenetrationBlunt>10</armorPenetrationBlunt>
+    </projectile>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseKT_AssassinSlugBullet">
+    <defName>Bullet_KT_AssassinSlug_AP</defName>
+    <label>KT assassin slug (AP)</label>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageAmountBase>150</damageAmountBase>
+      <speed>120</speed>
+      <armorPenetrationSharp>80</armorPenetrationSharp>
+      <armorPenetrationBlunt>15</armorPenetrationBlunt>
+    </projectile>
+  </ThingDef>
+
+  <!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_KT_AssassinSlug</defName>
+    <label>make KT assassin slug x100</label>
+    <description>Craft 100 KT assassin slugs.</description>
+    <jobString>Making KT assassin slugs.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>30</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_AssassinSlug>100</Ammo_KT_AssassinSlug>
+    </products>
+    <workAmount>8000</workAmount>
+  </RecipeDef>
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_KT_AssassinSlug_AP</defName>
+    <label>make KT assassin slug (AP) x100</label>
+    <description>Craft 100 KT assassin slugs (AP).</description>
+    <jobString>Making KT assassin slugs (AP).</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>30</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Steel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_AssassinSlug_AP>100</Ammo_KT_AssassinSlug_AP>
+    </products>
+    <workAmount>8000</workAmount>
+  </RecipeDef>
+
+</Defs>

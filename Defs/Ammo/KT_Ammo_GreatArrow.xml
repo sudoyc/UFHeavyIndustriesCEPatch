@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingCategoryDef>
+    <defName>AmmoKT_GreatArrow</defName>
+    <label>KT Great Arrow</label>
+    <parent>AmmoNeolithic</parent>
+    <iconPath>UI/Icons/ThingCategories/CaliberArrow</iconPath>
+  </ThingCategoryDef>
+
+  <!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_KT_GreatArrow</defName>
+    <label>KT Great Arrow</label>
+    <ammoTypes>
+      <Ammo_KT_GreatArrow>Bullet_KT_GreatArrow</Ammo_KT_GreatArrow>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+
+  <!-- ==================== Ammo ========================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="SpacerSmallAmmoBase">
+    <defName>Ammo_KT_GreatArrow</defName>
+    <label>KT great arrow</label>
+    <description>Oversized arrow for the KT Great Bow. Heavier and more powerful than standard arrows, capable of penetrating light armor.</description>
+    <graphicData>
+      <texPath>Things/Ammo/Arrow/Standard</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <statBases>
+      <Mass>0.02</Mass>
+      <Bulk>0.03</Bulk>
+    </statBases>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_FabricationBench</li>
+    </tradeTags>
+    <thingCategories>
+      <li>AmmoKT_GreatArrow</li>
+    </thingCategories>
+    <stackLimit>500</stackLimit>
+    <ammoClass>KT_GreatArrow</ammoClass>
+  </ThingDef>
+
+  <!-- ================== Projectiles ================== -->
+
+  <ThingDef ParentName="BaseBulletCE">
+    <defName>Bullet_KT_GreatArrow</defName>
+    <label>KT great arrow</label>
+    <graphicData>
+      <texPath>Things/Projectile/Arrow_Small</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Arrow</damageDef>
+      <damageAmountBase>17</damageAmountBase>
+      <speed>49</speed>
+      <armorPenetrationSharp>15</armorPenetrationSharp>
+      <armorPenetrationBlunt>3</armorPenetrationBlunt>
+      <stoppingPower>1.5</stoppingPower>
+    </projectile>
+  </ThingDef>
+
+  <!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="AmmoRecipeBase">
+    <defName>MakeAmmo_KT_GreatArrow</defName>
+    <label>make KT great arrow x50</label>
+    <description>Craft 50 KT great arrows.</description>
+    <jobString>Making KT great arrows.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>WoodLog</li></thingDefs>
+        </filter>
+        <count>20</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>5</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>WoodLog</li>
+        <li>Steel</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_GreatArrow>50</Ammo_KT_GreatArrow>
+    </products>
+    <workAmount>2000</workAmount>
+  </RecipeDef>
+
+</Defs>

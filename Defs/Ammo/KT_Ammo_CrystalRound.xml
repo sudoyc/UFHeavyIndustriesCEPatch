@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingCategoryDef>
+    <defName>AmmoKT_CrystalRound</defName>
+    <label>KT Crystal Round</label>
+    <parent>AmmoAdvanced</parent>
+    <iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
+  </ThingCategoryDef>
+
+  <!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_KT_CrystalRound</defName>
+    <label>KT Crystal Round</label>
+    <ammoTypes>
+      <Ammo_KT_CrystalRound>Bullet_KT_CrystalRound</Ammo_KT_CrystalRound>
+      <Ammo_KT_CrystalRound_AP>Bullet_KT_CrystalRound_AP</Ammo_KT_CrystalRound_AP>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+
+  <!-- ==================== Ammo ========================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" Name="KT_CrystalRoundBase" ParentName="SpacerMediumAmmoBase" Abstract="True">
+    <description>Crystalline projectile rounds for the UF Special SMG. On impact, micro-crystal fragments accumulate in the target's body, causing progressive internal damage.</description>
+    <statBases>
+      <Mass>0.02</Mass>
+      <Bulk>0.03</Bulk>
+    </statBases>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_FabricationBench</li>
+    </tradeTags>
+    <thingCategories>
+      <li>AmmoKT_CrystalRound</li>
+    </thingCategories>
+    <stackLimit>5000</stackLimit>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_CrystalRoundBase">
+    <defName>Ammo_KT_CrystalRound</defName>
+    <label>KT crystal round</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeRegular</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>KT_CrystalRound</ammoClass>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_CrystalRoundBase">
+    <defName>Ammo_KT_CrystalRound_AP</defName>
+    <label>KT crystal round (AP)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeConc</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>KT_CrystalRoundAP</ammoClass>
+    <generateAllowChance>0.15</generateAllowChance>
+  </ThingDef>
+
+  <!-- ==================== Projectiles ========================== -->
+
+  <ThingDef ParentName="BaseBulletCE">
+    <defName>Bullet_KT_CrystalRound</defName>
+    <label>KT crystal round</label>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_kt_small_II</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+      <drawSize>(1.2,1.2)</drawSize>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Bullet</damageDef>
+      <damageAmountBase>20</damageAmountBase>
+      <armorPenetrationSharp>15</armorPenetrationSharp>
+      <armorPenetrationBlunt>3</armorPenetrationBlunt>
+      <speed>120</speed>
+      <extraDamages>
+        <li>
+          <def>KT_Special_SMG_crystal</def>
+          <amount>24</amount>
+        </li>
+      </extraDamages>
+    </projectile>
+    <modExtensions>
+      <li Class="UFHeavyIndustries_CE.ProjectileEffectsExtension">
+        <impactEffecter>KT_Special_SMG_crystal_Hit</impactEffecter>
+      </li>
+      <li Class="ProjectileImpactFX.EffectProjectileExtension">
+        <AutoAssign>false</AutoAssign>
+        <CreateTerrainEffects>false</CreateTerrainEffects>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef ParentName="BaseBulletCE">
+    <defName>Bullet_KT_CrystalRound_AP</defName>
+    <label>KT crystal round (AP)</label>
+    <graphicData>
+      <texPath>Things/Projectile/Bullet_kt_small_II</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
+      <shaderType>TransparentPostLight</shaderType>
+      <drawSize>(1.2,1.2)</drawSize>
+    </graphicData>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>Bullet</damageDef>
+      <damageAmountBase>15</damageAmountBase>
+      <armorPenetrationSharp>30</armorPenetrationSharp>
+      <armorPenetrationBlunt>5</armorPenetrationBlunt>
+      <speed>120</speed>
+      <extraDamages>
+        <li>
+          <def>KT_Special_SMG_crystal</def>
+          <amount>18</amount>
+        </li>
+      </extraDamages>
+    </projectile>
+    <modExtensions>
+      <li Class="UFHeavyIndustries_CE.ProjectileEffectsExtension">
+        <impactEffecter>KT_Special_SMG_crystal_Hit</impactEffecter>
+      </li>
+      <li Class="ProjectileImpactFX.EffectProjectileExtension">
+        <AutoAssign>false</AutoAssign>
+        <CreateTerrainEffects>false</CreateTerrainEffects>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="ChargeAmmoRecipeBase">
+    <defName>MakeAmmo_KT_CrystalRound</defName>
+    <label>make KT crystal round x500</label>
+    <description>Craft 500 KT crystal rounds.</description>
+    <jobString>Making KT crystal rounds.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Plasteel</li></thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>4</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Plasteel</li>
+        <li>Steel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_CrystalRound>500</Ammo_KT_CrystalRound>
+    </products>
+    <workAmount>8000</workAmount>
+  </RecipeDef>
+
+  <RecipeDef ParentName="ChargeAmmoRecipeBase">
+    <defName>MakeAmmo_KT_CrystalRound_AP</defName>
+    <label>make KT crystal round (AP) x500</label>
+    <description>Craft 500 KT crystal rounds (AP).</description>
+    <jobString>Making KT crystal rounds (AP).</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Plasteel</li></thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>6</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Plasteel</li>
+        <li>Steel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_CrystalRound_AP>500</Ammo_KT_CrystalRound_AP>
+    </products>
+    <workAmount>10000</workAmount>
+  </RecipeDef>
+
+</Defs>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <ThingCategoryDef>
+    <defName>AmmoKT_SpearEnergyCell</defName>
+    <label>KT Spear Energy Cell</label>
+    <parent>AmmoAdvanced</parent>
+    <iconPath>UI/Icons/ThingCategories/CaliberCharge</iconPath>
+  </ThingCategoryDef>
+
+  <!-- ==================== AmmoSet ========================== -->
+
+  <CombatExtended.AmmoSetDef>
+    <defName>AmmoSet_KT_SpearEnergyCell</defName>
+    <label>KT Spear Energy Cell</label>
+    <ammoTypes>
+      <Ammo_KT_SpearEnergyCell>Bullet_KT_SpearEnergyCell</Ammo_KT_SpearEnergyCell>
+      <Ammo_KT_SpearEnergyCell_AP>Bullet_KT_SpearEnergyCell_AP</Ammo_KT_SpearEnergyCell_AP>
+    </ammoTypes>
+  </CombatExtended.AmmoSetDef>
+
+  <!-- ==================== Ammo ========================== -->
+
+  <ThingDef Class="CombatExtended.AmmoDef" Name="KT_SpearEnergyCellBase" ParentName="SpacerMediumAmmoBase" Abstract="True">
+    <description>Compact energy cell for the UF SPEAR dual-mode lance. Generates a focused beam capable of cutting through both infantry and light vehicles.</description>
+    <statBases>
+      <Mass>0.05</Mass>
+      <Bulk>0.08</Bulk>
+    </statBases>
+    <tradeTags>
+      <li>CE_AutoEnableTrade</li>
+      <li>CE_AutoEnableCrafting_FabricationBench</li>
+    </tradeTags>
+    <thingCategories>
+      <li>AmmoKT_SpearEnergyCell</li>
+    </thingCategories>
+    <stackLimit>500</stackLimit>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_SpearEnergyCellBase">
+    <defName>Ammo_KT_SpearEnergyCell</defName>
+    <label>KT spear energy cell</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeRegular</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>KT_SpearEnergy</ammoClass>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.AmmoDef" ParentName="KT_SpearEnergyCellBase">
+    <defName>Ammo_KT_SpearEnergyCell_AP</defName>
+    <label>KT spear energy cell (AP)</label>
+    <graphicData>
+      <texPath>Things/Ammo/Charged/LargeConc</texPath>
+      <graphicClass>Graphic_StackCount</graphicClass>
+    </graphicData>
+    <ammoClass>KT_SpearEnergyAP</ammoClass>
+    <generateAllowChance>0.15</generateAllowChance>
+  </ThingDef>
+
+  <!-- ==================== Projectiles (LaserBeamCE + Harmony mote patch) ==================== -->
+
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseLaserBullet">
+    <defName>Bullet_KT_SpearEnergyCell</defName>
+    <label>KT spear energy beam</label>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>KT_Beamflashlight</damageDef>
+      <isInstant>true</isInstant>
+      <damageAmountBase>100</damageAmountBase>
+      <armorPenetrationSharp>120</armorPenetrationSharp>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
+    </projectile>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <damageAmountBase>50</damageAmountBase>
+        <explosiveDamageType>KTREDomb</explosiveDamageType>
+        <explosiveRadius>1.5</explosiveRadius>
+        <explosionSound>Explosion_Bomb</explosionSound>
+        <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+      </li>
+    </comps>
+    <modExtensions Inherit="False">
+      <li Class="UFHeavyIndustries_CE.BeamMoteExtension">
+        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
+        <beamStartOffset>0</beamStartOffset>
+        <impactEffecter>KT_Laserhit_large</impactEffecter>
+      </li>
+      <li Class="ProjectileImpactFX.EffectProjectileExtension">
+        <AutoAssign>false</AutoAssign>
+        <CreateTerrainEffects>false</CreateTerrainEffects>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <ThingDef Class="CombatExtended.Lasers.LaserBeamDefCE" ParentName="BaseLaserBullet">
+    <defName>Bullet_KT_SpearEnergyCell_AP</defName>
+    <label>KT spear energy beam (AP)</label>
+    <projectile Class="CombatExtended.ProjectilePropertiesCE">
+      <damageDef>KT_Beamflashlight</damageDef>
+      <isInstant>true</isInstant>
+      <damageAmountBase>70</damageAmountBase>
+      <armorPenetrationSharp>250</armorPenetrationSharp>
+      <armorPenetrationBlunt>0.5</armorPenetrationBlunt>
+    </projectile>
+    <comps>
+      <li Class="CombatExtended.CompProperties_ExplosiveCE">
+        <damageAmountBase>30</damageAmountBase>
+        <explosiveDamageType>KTREDomb</explosiveDamageType>
+        <explosiveRadius>0.8</explosiveRadius>
+        <explosionSound>Explosion_Bomb</explosionSound>
+        <applyDamageToExplosionCellsNeighbors>true</applyDamageToExplosionCellsNeighbors>
+      </li>
+    </comps>
+    <modExtensions Inherit="False">
+      <li Class="UFHeavyIndustries_CE.BeamMoteExtension">
+        <beamMoteDef>KT_Beamflashlight_heavy</beamMoteDef>
+        <beamStartOffset>0</beamStartOffset>
+        <impactEffecter>KT_Laserhit_large</impactEffecter>
+      </li>
+      <li Class="ProjectileImpactFX.EffectProjectileExtension">
+        <AutoAssign>false</AutoAssign>
+        <CreateTerrainEffects>false</CreateTerrainEffects>
+      </li>
+    </modExtensions>
+  </ThingDef>
+
+  <!-- ==================== Recipes ========================== -->
+
+  <RecipeDef ParentName="ChargeAmmoRecipeBase">
+    <defName>MakeAmmo_KT_SpearEnergyCell</defName>
+    <label>make KT spear energy cell x500</label>
+    <description>Craft 500 KT spear energy cells.</description>
+    <jobString>Making KT spear energy cells.</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Plasteel</li></thingDefs>
+        </filter>
+        <count>30</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>8</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Plasteel</li>
+        <li>Steel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_SpearEnergyCell>500</Ammo_KT_SpearEnergyCell>
+    </products>
+    <workAmount>12000</workAmount>
+  </RecipeDef>
+
+  <RecipeDef ParentName="ChargeAmmoRecipeBase">
+    <defName>MakeAmmo_KT_SpearEnergyCell_AP</defName>
+    <label>make KT spear energy cell (AP) x500</label>
+    <description>Craft 500 KT spear energy cells (AP).</description>
+    <jobString>Making KT spear energy cells (AP).</jobString>
+    <ingredients>
+      <li>
+        <filter>
+          <thingDefs><li>Plasteel</li></thingDefs>
+        </filter>
+        <count>30</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>Steel</li></thingDefs>
+        </filter>
+        <count>15</count>
+      </li>
+      <li>
+        <filter>
+          <thingDefs><li>ComponentIndustrial</li></thingDefs>
+        </filter>
+        <count>10</count>
+      </li>
+    </ingredients>
+    <fixedIngredientFilter>
+      <thingDefs>
+        <li>Plasteel</li>
+        <li>Steel</li>
+        <li>ComponentIndustrial</li>
+      </thingDefs>
+    </fixedIngredientFilter>
+    <products>
+      <Ammo_KT_SpearEnergyCell_AP>500</Ammo_KT_SpearEnergyCell_AP>
+    </products>
+    <workAmount>14000</workAmount>
+  </RecipeDef>
+
+</Defs>
