@@ -25,7 +25,7 @@
     <label>KT tranq dart</label>
     <description>Precision tranquilizer dart for the KT sedation rifle. Delivers a fast-acting sedative compound on impact.</description>
     <graphicData>
-      <texPath>Things/Ammo/Needle/Standard</texPath>
+      <texPath>Things/Ammo/Neolithic/Dart</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
     <statBases>

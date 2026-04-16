@@ -645,24 +645,9 @@ namespace UFHeavyIndustries_CE
         }
     }
 
-    /// <summary>
-    /// Harmony Prefix on ProjectileCE.Destroy — cleans up SkimmingTracker state.
-    /// Note: Thing.Destroy is the actual method since ProjectileCE doesn't override it.
-    /// We patch ProjectileCE specifically to narrow the scope.
-    /// </summary>
-    [HarmonyPatch(typeof(ProjectileCE), nameof(ProjectileCE.Destroy))]
-    public static class Patch_ProjectileCE_Destroy_Penetration
-    {
-        public static void Prefix(ProjectileCE __instance)
-        {
-            try
-            {
-                SkimmingTracker.Remove(__instance.thingIDNumber);
-            }
-            catch (Exception e)
-            {
-                Log.Warning($"[UFHeavyIndustries_CE] PenetrationCE Destroy cleanup failed: {e}");
-            }
-        }
-    }
+    // Note: No Destroy patch needed — SkimmingTracker cleanup is handled in
+    // Patch_BulletCE_Impact_Penetration (DoFinalExplosion) and
+    // Patch_ProjectileCE_Tick_Penetration (out-of-bounds / impassable checks).
+    // ProjectileCE does not override Thing.Destroy, so Harmony cannot target it
+    // via typeof(ProjectileCE) — attempting to do so crashes PatchAll().
 }

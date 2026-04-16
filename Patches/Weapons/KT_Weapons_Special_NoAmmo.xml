@@ -204,12 +204,15 @@
 		</value>
 	</Operation>
 
+	<!-- KT_Analnail 原 def 无 comps 节点，添加到 ThingDef 根 -->
 	<Operation Class="PatchOperationAdd">
-		<xpath>Defs/ThingDef[defName="KT_Analnail"]/comps</xpath>
+		<xpath>Defs/ThingDef[defName="KT_Analnail"]</xpath>
 		<value>
-			<li Class="CombatExtended.CompProperties_FireModes">
-				<aiAimMode>AimedShot</aiAimMode>
-			</li>
+			<comps>
+				<li Class="CombatExtended.CompProperties_FireModes">
+					<aiAimMode>AimedShot</aiAimMode>
+				</li>
+			</comps>
 		</value>
 	</Operation>
 

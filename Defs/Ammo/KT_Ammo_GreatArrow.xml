@@ -25,7 +25,7 @@
     <label>KT great arrow</label>
     <description>Oversized arrow for the KT Great Bow. Heavier and more powerful than standard arrows, capable of penetrating light armor.</description>
     <graphicData>
-      <texPath>Things/Ammo/Arrow/Standard</texPath>
+      <texPath>Things/Ammo/Neolithic/GreatArrow/Stone</texPath>
       <graphicClass>Graphic_StackCount</graphicClass>
     </graphicData>
     <statBases>
