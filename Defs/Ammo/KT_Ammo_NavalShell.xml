@@ -76,7 +76,6 @@
       <speed>80</speed>
       <armorPenetrationSharp>200</armorPenetrationSharp>
       <armorPenetrationBlunt>0</armorPenetrationBlunt>
-      <flyOverhead>true</flyOverhead>
       <explosionRadius>4</explosionRadius>
       <soundExplode>Explosion_Rocket</soundExplode>
       <soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>
@@ -108,7 +107,6 @@
       <speed>80</speed>
       <armorPenetrationSharp>500</armorPenetrationSharp>
       <armorPenetrationBlunt>0</armorPenetrationBlunt>
-      <flyOverhead>true</flyOverhead>
       <explosionRadius>1.5</explosionRadius>
       <soundExplode>Explosion_Rocket</soundExplode>
       <soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>

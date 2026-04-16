@@ -61,7 +61,6 @@
       <speed>60</speed>
       <armorPenetrationSharp>300</armorPenetrationSharp>
       <armorPenetrationBlunt>0</armorPenetrationBlunt>
-      <flyOverhead>true</flyOverhead>
       <explosionRadius>20</explosionRadius>
       <soundExplode>Explosion_Rocket</soundExplode>
       <soundHitThickRoof>Artillery_HitThickRoof</soundHitThickRoof>

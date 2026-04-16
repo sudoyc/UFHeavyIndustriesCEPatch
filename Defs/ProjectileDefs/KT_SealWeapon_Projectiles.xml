@@ -65,7 +65,6 @@
       <armorPenetrationSharp>500</armorPenetrationSharp>
       <armorPenetrationBlunt>100</armorPenetrationBlunt>
       <speed>300</speed>
-      <flyOverhead>true</flyOverhead>
       <soundExplode>Explosion_Rocket</soundExplode>
     </projectile>
     <comps>
