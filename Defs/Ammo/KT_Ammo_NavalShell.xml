@@ -73,7 +73,7 @@
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageDef>Bomb</damageDef>
       <damageAmountBase>450</damageAmountBase>
-      <speed>80</speed>
+      <speed>150</speed>
       <armorPenetrationSharp>200</armorPenetrationSharp>
       <armorPenetrationBlunt>0</armorPenetrationBlunt>
       <explosionRadius>4</explosionRadius>
@@ -104,7 +104,7 @@
     <projectile Class="CombatExtended.ProjectilePropertiesCE">
       <damageDef>Bomb</damageDef>
       <damageAmountBase>200</damageAmountBase>
-      <speed>80</speed>
+      <speed>150</speed>
       <armorPenetrationSharp>500</armorPenetrationSharp>
       <armorPenetrationBlunt>0</armorPenetrationBlunt>
       <explosionRadius>1.5</explosionRadius>
