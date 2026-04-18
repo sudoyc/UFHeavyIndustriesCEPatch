@@ -40,9 +40,6 @@ namespace UFHeavyIndustries_CE
     {
         public Map map;
         public Vector3 direction;
-        public Vector3 currentPos;
-        public Vector3 prevPos;
-        public float speed;
         public Thing launcher;
         public ThingDef equipmentDef;
         public Dictionary<int, int> hitCounts = new Dictionary<int, int>();
@@ -59,10 +56,7 @@ namespace UFHeavyIndustries_CE
     {
         public static readonly Dictionary<int, SkimmingState> States = new Dictionary<int, SkimmingState>();
 
-        public static bool IsSkimming(int id)
-        {
-            return States.ContainsKey(id);
-        }
+        public static bool IsSkimming(int id) => States.ContainsKey(id);
 
         public static SkimmingState Get(int id)
         {
@@ -70,15 +64,8 @@ namespace UFHeavyIndustries_CE
             return state;
         }
 
-        public static void Register(int id, SkimmingState state)
-        {
-            States[id] = state;
-        }
-
-        public static void Remove(int id)
-        {
-            States.Remove(id);
-        }
+        public static void Register(int id, SkimmingState state) => States[id] = state;
+        public static void Remove(int id) => States.Remove(id);
     }
 
     /// <summary>
@@ -86,14 +73,9 @@ namespace UFHeavyIndustries_CE
     /// </summary>
     public static class PenetrationHelper
     {
-        // Cached reflection for ECT.WeatherEvent_LightningTrail constructor
         private static bool _lightningTypeResolved;
         private static ConstructorInfo _lightningCtor;
 
-        /// <summary>
-        /// Resolve the ECT.WeatherEvent_LightningTrail constructor via reflection (cached).
-        /// Constructor signature: (Map map, Vector3 start, Vector3 dir, float length, int duration, int growTicks, float variance, float width)
-        /// </summary>
         private static ConstructorInfo GetLightningTrailCtor()
         {
             if (_lightningTypeResolved)
@@ -102,7 +84,6 @@ namespace UFHeavyIndustries_CE
             _lightningTypeResolved = true;
             try
             {
-                // Search all loaded assemblies for the ECT type
                 foreach (var asm in AppDomain.CurrentDomain.GetAssemblies())
                 {
                     var type = asm.GetType("ECT.WeatherEvent_LightningTrail", false);
@@ -110,19 +91,9 @@ namespace UFHeavyIndustries_CE
                     {
                         _lightningCtor = type.GetConstructor(new Type[]
                         {
-                            typeof(Map),
-                            typeof(Vector3),
-                            typeof(Vector3),
-                            typeof(float),
-                            typeof(int),
-                            typeof(int),
-                            typeof(float),
-                            typeof(float)
+                            typeof(Map), typeof(Vector3), typeof(Vector3),
+                            typeof(float), typeof(int), typeof(int), typeof(float), typeof(float)
                         });
-                        if (_lightningCtor != null)
-                        {
-                            Log.Message("[UFHeavyIndustries_CE] Resolved ECT.WeatherEvent_LightningTrail via reflection.");
-                        }
                         break;
                     }
                 }
@@ -135,8 +106,47 @@ namespace UFHeavyIndustries_CE
         }
 
         /// <summary>
-        /// Apply damage to a thing during skimming, with stun and knockback for pawns.
+        /// Resets the CE projectile's trajectory to continue skimming in state.direction.
+        /// This mirrors what ECT's StartSkimming() does for vanilla Bullet.
+        /// Crucially, this also resets landed=false so CE's Tick continues to run.
         /// </summary>
+        public static void ResetSkimmingTrajectory(ProjectileCE proj, SkimmingState state)
+        {
+            if (proj == null || proj.Destroyed) return;
+            Map map = proj.Map;
+            if (map == null) return;
+
+            var dir = state.direction; // horizontal, y=0, normalized
+            int mapSize = map.Size.x + map.Size.z;
+
+            // Reset origin to current position
+            proj.origin = new Vector2(proj.ExactPosition.x, proj.ExactPosition.z);
+
+            // Destination: far away in the skimming direction
+            proj.Destination = proj.origin + new Vector2(dir.x, dir.z) * mapSize;
+
+            // How many ticks to travel mapSize cells at projectile speed
+            float speedCellsPerTick = proj.def.projectile.speed / GenTicks.TicksPerRealSecond;
+            if (speedCellsPerTick < 0.01f) speedCellsPerTick = 0.01f;
+            float newTicks = mapSize / speedCellsPerTick;
+
+            proj.startingTicksToImpact = newTicks;
+            proj.ticksToImpact = Mathf.CeilToInt(newTicks);
+            proj.FlightTicks = 0;
+
+            // Flat trajectory at small positive height — prevents immediate ShouldCollideWithSomething re-trigger
+            // (LerpedTrajectoryWorker: height = shotHeight - gravity*t^2/2; at shotHeight=0.2 this is ~27 ticks)
+            proj.shotHeight = 0.2f;
+            proj.shotAngle = 0f;
+
+            // Essential: clear the landed flag so CE's Tick() doesn't early-return
+            proj.landed = false;
+
+            // Clear LerpedTrajectoryWorker's position cache
+            if (proj.cachedPredictedPositions != null)
+                proj.cachedPredictedPositions.Clear();
+        }
+
         public static void ApplySkimmingDamage(
             ProjectileCE projectile,
             Thing target,
@@ -154,41 +164,25 @@ namespace UFHeavyIndustries_CE
                 DamageDef damageDef = projectile.def.projectile.damageDef;
 
                 var dinfo = new DamageInfo(
-                    damageDef,
-                    damageAmount,
-                    penetration,
-                    angle,
-                    launcher,
-                    null,
-                    equipDef,
-                    instigatorGuilty: true);
+                    damageDef, damageAmount, penetration, angle,
+                    launcher, null, equipDef, instigatorGuilty: true);
 
                 target.TakeDamage(dinfo);
 
                 if (target is Pawn pawn && !pawn.Dead && !pawn.Destroyed)
                 {
-                    // Stun
                     if (ext.stunDuration > 0)
                     {
                         float stunAmount = ext.stunDuration / 30f;
                         if (stunAmount < 0.1f) stunAmount = 0.5f;
                         var stunInfo = new DamageInfo(
-                            DamageDefOf.Stun,
-                            stunAmount,
-                            999f,
-                            angle,
-                            launcher,
-                            null,
-                            equipDef,
-                            instigatorGuilty: true);
+                            DamageDefOf.Stun, stunAmount, 999f, angle,
+                            launcher, null, equipDef, instigatorGuilty: true);
                         pawn.TakeDamage(stunInfo);
                     }
 
-                    // Knockback on first hit only
                     if (isFirstHit && ext.knockbackDistance > 0f)
-                    {
                         KnockbackTarget(pawn, flightDir, ext.knockbackDistance, projectile.Map);
-                    }
                 }
             }
             catch (Exception e)
@@ -197,9 +191,6 @@ namespace UFHeavyIndustries_CE
             }
         }
 
-        /// <summary>
-        /// Teleport-knockback a pawn along the flight direction.
-        /// </summary>
         public static void KnockbackTarget(Pawn pawn, Vector3 direction, float distance, Map map)
         {
             try
@@ -211,13 +202,9 @@ namespace UFHeavyIndustries_CE
                 {
                     IntVec3 candidate = startPos + (direction * i).ToIntVec3();
                     if (candidate.InBounds(map) && candidate.Walkable(map))
-                    {
                         bestPos = candidate;
-                    }
                     else
-                    {
                         break;
-                    }
                 }
 
                 if (bestPos != startPos)
@@ -226,10 +213,7 @@ namespace UFHeavyIndustries_CE
                     pawn.Notify_Teleported(true, true);
                     FleckMaker.ThrowDustPuff(startPos, map, 1f);
                     FleckMaker.ThrowDustPuff(bestPos, map, 1f);
-                    if (pawn.jobs != null)
-                    {
-                        pawn.jobs.StopAll(false, true);
-                    }
+                    pawn.jobs?.StopAll(false, true);
                 }
             }
             catch (Exception e)
@@ -238,25 +222,18 @@ namespace UFHeavyIndustries_CE
             }
         }
 
-        /// <summary>
-        /// Trigger a final explosion at the given position and destroy the projectile.
-        /// </summary>
         public static void DoFinalExplosion(ProjectileCE projectile, IntVec3 pos)
         {
             try
             {
                 float explosionRadius = projectile.def.projectile.explosionRadius;
-                if (explosionRadius <= 0f)
-                    return;
+                if (explosionRadius <= 0f) return;
 
                 Map map = projectile.Map;
-                if (map == null)
-                    return;
+                if (map == null) return;
 
                 GenExplosion.DoExplosion(
-                    center: pos,
-                    map: map,
-                    radius: explosionRadius,
+                    center: pos, map: map, radius: explosionRadius,
                     damType: projectile.def.projectile.damageDef,
                     instigator: projectile.launcher,
                     damAmount: Mathf.FloorToInt(projectile.DamageAmount),
@@ -281,9 +258,6 @@ namespace UFHeavyIndustries_CE
             }
         }
 
-        /// <summary>
-        /// Spawn visual effects (sparks, lightning, sound) at the given position.
-        /// </summary>
         public static void DoSkimmingVisualsAt(
             Vector3 drawPos, Map map, Vector3 flightDir,
             bool playSound, bool forceLightning, bool spawnSparks,
@@ -291,42 +265,32 @@ namespace UFHeavyIndustries_CE
         {
             try
             {
-                if (map == null)
-                    return;
-
+                if (map == null) return;
                 var ext = state.ext;
                 int ticksGame = Find.TickManager.TicksGame;
 
-                // Sound
                 if (playSound && ext.skimHitSound != null && ticksGame > state.lastSoundTick)
                 {
                     state.lastSoundTick = ticksGame;
                     IntVec3 soundCell = drawPos.ToIntVec3();
                     if (soundCell.InBounds(map))
-                    {
-                        SoundInfo info = SoundInfo.InMap(new TargetInfo(soundCell, map, false));
-                        ext.skimHitSound.PlayOneShot(info);
-                    }
+                        ext.skimHitSound.PlayOneShot(SoundInfo.InMap(new TargetInfo(soundCell, map, false)));
                 }
 
-                // Sparks
                 if (spawnSparks)
                 {
                     FleckDef sparkFleck = ext.sparkFleckDef ?? FleckDefOf.MicroSparks;
                     float baseAngle = Vector3Utility.AngleFlat(flightDir);
                     int sparkCount = ext.sparkCountRange.RandomInRange;
-                    float spreadAngle = ext.sparkSpreadAngle;
-
                     for (int i = 0; i < sparkCount; i++)
                     {
                         FleckCreationData fcd = FleckMaker.GetDataStatic(drawPos, map, sparkFleck, Rand.Range(3f, 6f));
-                        fcd.velocityAngle = baseAngle + Rand.Range(-spreadAngle, spreadAngle);
+                        fcd.velocityAngle = baseAngle + Rand.Range(-ext.sparkSpreadAngle, ext.sparkSpreadAngle);
                         fcd.velocitySpeed = ext.sparkSpeedRange.RandomInRange;
                         map.flecks.CreateFleck(fcd);
                     }
                 }
 
-                // Lightning trail (via reflection to avoid hard dependency on ECT DLL)
                 if (ticksGame - state.lastLightningTick > 3)
                 {
                     state.lastLightningTick = ticksGame;
@@ -341,17 +305,13 @@ namespace UFHeavyIndustries_CE
                             var lightningEvent = (WeatherEvent)ctor.Invoke(new object[]
                             {
                                 map, start, flightDir,
-                                ext.lightningLength,
-                                ext.lightningDuration,
-                                ext.lightningGrowthTicks,
-                                ext.lightningVariance,
-                                ext.lightningWidth
+                                ext.lightningLength, ext.lightningDuration,
+                                ext.lightningGrowthTicks, ext.lightningVariance, ext.lightningWidth
                             });
                             map.weatherManager.eventHandler.AddEvent(lightningEvent);
                         }
 
-                        float glowSize = forceLightning ? 3f : 2.5f;
-                        FleckMaker.ThrowLightningGlow(drawPos, map, glowSize);
+                        FleckMaker.ThrowLightningGlow(drawPos, map, forceLightning ? 3f : 2.5f);
                     }
                 }
             }
@@ -364,7 +324,9 @@ namespace UFHeavyIndustries_CE
 
     /// <summary>
     /// Harmony Prefix on BulletCE.Impact — intercepts first impact to enter skimming mode.
-    /// Uses Priority.High to run before other Impact patches (ProjectileEffects, MultiExplosion).
+    /// Also handles skimming-mode impacts (wall = final explosion, pawn = reset trajectory).
+    /// CRITICAL FIX: resets landed=false and calls ResetSkimmingTrajectory so CE's Tick
+    /// continues to run the ballistic system instead of early-returning.
     /// </summary>
     [HarmonyPatch(typeof(BulletCE), nameof(BulletCE.Impact))]
     public static class Patch_BulletCE_Impact_Penetration
@@ -376,11 +338,10 @@ namespace UFHeavyIndustries_CE
             {
                 var ext = __instance.def.GetModExtension<PenetrationCEExtension>();
                 if (ext == null)
-                    return true; // No extension, let original run
+                    return true;
 
                 int id = __instance.thingIDNumber;
                 Map map = __instance.Map;
-
                 if (map == null)
                     return true;
 
@@ -401,102 +362,125 @@ namespace UFHeavyIndustries_CE
                         return false;
                     }
 
-                    // Skimming but didn't hit impassable — ignore this Impact call,
-                    // damage is handled in the Tick sweep
+                    // Non-impassable or null: reset trajectory so CE keeps moving the projectile.
+                    // Damage is swept by Patch_ProjectileCE_Tick_Penetration.Postfix.
+                    PenetrationHelper.ResetSkimmingTrajectory(__instance, state);
                     return false;
                 }
 
-                // --- First impact (not yet skimming) ---
+                // --- First impact ---
 
-                // Calculate flight direction
+                // Calculate flight direction from origin → current position
                 Vector3 dir = (__instance.ExactPosition - new Vector3(__instance.origin.x, 0f, __instance.origin.y)).Yto0().normalized;
                 if (dir == Vector3.zero)
                     dir = Vector3.forward;
 
-                // Hit impassable on first impact — final explosion immediately, no skimming
+                // First hit on impassable wall: let CE handle it normally (explosion + destroy)
                 if (hitThing != null && hitThing.def.passability == Traversability.Impassable)
-                {
-                    PenetrationHelper.DoFinalExplosion(__instance, hitThing.Position);
-                    // Let original Impact run for cleanup (it calls base.Impact which calls Destroy)
                     return true;
-                }
 
-                // Hit a non-impassable target or null (ground) — enter skimming mode
+                // First hit on pawn/passable-building OR ground (hitThing==null): enter skimming
+                var newState = new SkimmingState
+                {
+                    map = map,
+                    direction = dir,
+                    launcher = __instance.launcher,
+                    equipmentDef = __instance.equipmentDef,
+                    lastSoundTick = -999,
+                    lastLightningTick = Find.TickManager.TicksGame,
+                    ext = ext,
+                };
+
                 if (hitThing != null)
                 {
-                    // Record first hit
-                    var hitCounts = new Dictionary<int, int>();
-                    if (hitThing.thingIDNumber >= 0)
-                    {
-                        hitCounts[hitThing.thingIDNumber] = 1;
-                    }
-
-                    // Apply damage to first target
+                    // Apply damage to the first target, record hit
+                    newState.hitCounts[hitThing.thingIDNumber] = 1;
                     PenetrationHelper.ApplySkimmingDamage(__instance, hitThing, dir, true, ext);
 
-                    // Spawn visuals at hit point
                     var tempState = new SkimmingState
                     {
-                        map = map,
-                        direction = dir,
-                        ext = ext,
-                        lastSoundTick = -999,
-                        lastLightningTick = Find.TickManager.TicksGame,
+                        map = map, direction = dir, ext = ext,
+                        lastSoundTick = -999, lastLightningTick = Find.TickManager.TicksGame
                     };
                     PenetrationHelper.DoSkimmingVisualsAt(
-                        hitThing.DrawPos, map, dir,
-                        true, true, true, tempState);
-
-                    // Now set up the real skimming state
-                    tempState.currentPos = __instance.ExactPosition;
-                    tempState.prevPos = __instance.ExactPosition;
-                    tempState.speed = __instance.def.projectile.speed / 60f; // speed is tiles/second, convert to tiles/tick
-                    tempState.launcher = __instance.launcher;
-                    tempState.equipmentDef = __instance.equipmentDef;
-                    tempState.hitCounts = hitCounts;
-
-                    SkimmingTracker.Register(id, tempState);
-                }
-                else
-                {
-                    // Hit ground / no target — still enter skimming
-                    var state = new SkimmingState
-                    {
-                        map = map,
-                        direction = dir,
-                        currentPos = __instance.ExactPosition,
-                        prevPos = __instance.ExactPosition,
-                        speed = __instance.def.projectile.speed / 60f,
-                        launcher = __instance.launcher,
-                        equipmentDef = __instance.equipmentDef,
-                        hitCounts = new Dictionary<int, int>(),
-                        lastSoundTick = -999,
-                        lastLightningTick = Find.TickManager.TicksGame,
-                        ext = ext,
-                    };
-
-                    SkimmingTracker.Register(id, state);
+                        hitThing.DrawPos, map, dir, true, true, true, tempState);
                 }
 
-                // Play the explosive sound on entering skimming
+                // Play the entry sound
                 if (__instance.def.projectile.soundExplode != null)
                 {
-                    __instance.def.projectile.soundExplode.PlayOneShot(SoundInfo.InMap(new TargetInfo(__instance.Position, map, false)));
+                    __instance.def.projectile.soundExplode.PlayOneShot(
+                        SoundInfo.InMap(new TargetInfo(__instance.Position, map, false)));
                 }
 
-                // Skip original Impact entirely — we don't want the projectile destroyed
+                SkimmingTracker.Register(id, newState);
+
+                // Reset CE trajectory so the projectile keeps flying in the skimming direction.
+                // This also clears landed=false which is the core fix.
+                PenetrationHelper.ResetSkimmingTrajectory(__instance, newState);
                 return false;
             }
             catch (Exception e)
             {
                 Log.Warning($"[UFHeavyIndustries_CE] PenetrationCE BulletCE.Impact Prefix failed: {e}");
-                return true; // Fall through to original on error
+                return true;
             }
         }
     }
 
     /// <summary>
-    /// Harmony Postfix on ProjectileCE.Tick — advances skimming projectiles and sweeps damage.
+    /// Harmony Prefix on ProjectileCE.ImpactSomething — when already skimming, intercept
+    /// end-of-trajectory / ground-hit triggers and reset trajectory instead of destroying.
+    /// This mirrors ECT's override of ImpactSomething() in Projectile_HeavyArmourPiercer.
+    /// </summary>
+    [HarmonyPatch(typeof(ProjectileCE), "ImpactSomething")]
+    public static class Patch_ProjectileCE_ImpactSomething_Penetration
+    {
+        public static bool Prefix(ProjectileCE __instance)
+        {
+            try
+            {
+                int id = __instance.thingIDNumber;
+                if (!SkimmingTracker.IsSkimming(id))
+                    return true;
+
+                if (__instance.Destroyed)
+                {
+                    SkimmingTracker.Remove(id);
+                    return true;
+                }
+
+                Map map = __instance.Map;
+                if (map == null)
+                {
+                    SkimmingTracker.Remove(id);
+                    return true;
+                }
+
+                // If already out of bounds, destroy cleanly
+                if (!__instance.Position.InBounds(map))
+                {
+                    SkimmingTracker.Remove(id);
+                    __instance.Destroy(DestroyMode.Vanish);
+                    return false;
+                }
+
+                var state = SkimmingTracker.Get(id);
+                PenetrationHelper.ResetSkimmingTrajectory(__instance, state);
+                return false; // Skip ImpactSomething — trajectory reset handles continuation
+            }
+            catch (Exception e)
+            {
+                Log.Warning($"[UFHeavyIndustries_CE] PenetrationCE ImpactSomething Prefix failed: {e}");
+                return true;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Harmony Postfix on ProjectileCE.Tick — sweeps damage along the path CE moved the projectile.
+    /// Uses LastPos (set by CE before movement) and ExactPosition (set by CE after movement).
+    /// No manual position advancement needed — CE's own trajectory system handles movement.
     /// </summary>
     [HarmonyPatch(typeof(ProjectileCE), nameof(ProjectileCE.Tick))]
     public static class Patch_ProjectileCE_Tick_Penetration
@@ -515,10 +499,6 @@ namespace UFHeavyIndustries_CE
                     return;
                 }
 
-                var state = SkimmingTracker.Get(id);
-                if (state == null)
-                    return;
-
                 Map map = __instance.Map;
                 if (map == null)
                 {
@@ -526,30 +506,17 @@ namespace UFHeavyIndustries_CE
                     return;
                 }
 
-                var ext = state.ext;
+                var state = SkimmingTracker.Get(id);
 
-                // Advance position
-                state.prevPos = state.currentPos;
-                state.currentPos += state.direction * state.speed;
+                // Use the positions CE computed this tick
+                Vector3 sweepFrom = __instance.LastPos;
+                Vector3 sweepTo = __instance.ExactPosition;
 
-                // Update the projectile's actual position to follow our skimming path
-                Vector3 newPos = state.currentPos;
-                newPos.y = 0f;
-
-                // Check map bounds
-                IntVec3 newCell = newPos.ToIntVec3();
-                if (!newCell.InBounds(map))
-                {
-                    SkimmingTracker.Remove(id);
-                    __instance.Destroy(DestroyMode.Vanish);
+                // Skip trivial movement (landed=true tick where CE didn't move)
+                if ((sweepTo - sweepFrom).sqrMagnitude < 0.001f)
                     return;
-                }
 
-                // Update projectile position
-                __instance.ExactPosition = newPos;
-
-                // Sweep damage between prevPos and currentPos
-                DoSkimmingDamage(__instance, state.prevPos, state.currentPos, state, map);
+                DoSkimmingDamage(__instance, sweepFrom, sweepTo, state, map);
             }
             catch (Exception e)
             {
@@ -563,8 +530,8 @@ namespace UFHeavyIndustries_CE
             SkimmingState state, Map map)
         {
             var ext = state.ext;
-            Vector3 delta = end - start;
             Vector3 dir = state.direction;
+            Vector3 delta = end - start;
             float totalDist = delta.magnitude;
             if (totalDist < 0.1f)
                 totalDist = 0.1f;
@@ -588,9 +555,8 @@ namespace UFHeavyIndustries_CE
                     if (!cell.InBounds(map) || !state.visitedCells.Add(cell))
                         continue;
 
-                    List<Thing> thingList = cell.GetThingList(map);
                     tmpThings.Clear();
-                    tmpThings.AddRange(thingList);
+                    tmpThings.AddRange(cell.GetThingList(map));
 
                     for (int j = tmpThings.Count - 1; j >= 0; j--)
                     {
@@ -601,21 +567,18 @@ namespace UFHeavyIndustries_CE
                             continue;
 
                         int hitCount = 0;
-                        if (state.hitCounts.TryGetValue(thing.thingIDNumber, out int existing))
-                            hitCount = existing;
+                        state.hitCounts.TryGetValue(thing.thingIDNumber, out hitCount);
 
                         if (hitCount >= ext.maxHitsPerTarget)
                             continue;
 
-                        // Check for impassable wall
                         if (thing.def.passability == Traversability.Impassable)
                         {
                             float distToThing = (thing.Position.ToVector3Shifted() - samplePos).Yto0().magnitude;
                             if (distToThing < 0.9f)
                             {
                                 PenetrationHelper.DoSkimmingVisualsAt(
-                                    thing.DrawPos, map, dir,
-                                    true, true, true, state);
+                                    thing.DrawPos, map, dir, true, true, true, state);
                                 PenetrationHelper.DoFinalExplosion(projectile, thing.Position);
                                 SkimmingTracker.Remove(projectile.thingIDNumber);
                                 projectile.Destroy(DestroyMode.Vanish);
@@ -624,30 +587,18 @@ namespace UFHeavyIndustries_CE
                         }
                         else
                         {
-                            // Damage non-impassable target
                             state.hitCounts[thing.thingIDNumber] = hitCount + 1;
-                            bool isFirstHit = hitCount == 0;
-
                             PenetrationHelper.DoSkimmingVisualsAt(
-                                thing.DrawPos, map, dir,
-                                true, true, true, state);
+                                thing.DrawPos, map, dir, true, true, true, state);
                             PenetrationHelper.ApplySkimmingDamage(
-                                projectile, thing, dir, isFirstHit, ext);
+                                projectile, thing, dir, hitCount == 0, ext);
                         }
                     }
                 }
-
-                tmpThings.Clear();
 
                 if (projectile.Destroyed)
                     break;
             }
         }
     }
-
-    // Note: No Destroy patch needed — SkimmingTracker cleanup is handled in
-    // Patch_BulletCE_Impact_Penetration (DoFinalExplosion) and
-    // Patch_ProjectileCE_Tick_Penetration (out-of-bounds / impassable checks).
-    // ProjectileCE does not override Thing.Destroy, so Harmony cannot target it
-    // via typeof(ProjectileCE) — attempting to do so crashes PatchAll().
 }

@@ -1,45 +1,55 @@
 # UF Heavy Industries — CE Compatibility Patch
 
-Combat Extended compatibility patch for [UF Heavy Industries](https://steamcommunity.com/sharedfiles/filedetails/?id=3555662938) (KindSeal.LOL).
+Combat Extended compatibility patch for [UF Heavy Industries](https://steamcommunity.com/sharedfiles/filedetails/?id=3555662938).
 
 ## Requirements
 
-- [Combat Extended](https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044)
 - [UF Heavy Industries](https://steamcommunity.com/sharedfiles/filedetails/?id=3555662938)
-- [SRALib](https://steamcommunity.com/sharedfiles/filedetails/?id=3565275325)
+- [Combat Extended](https://steamcommunity.com/sharedfiles/filedetails/?id=2890901044)
+- [SRALib](https://steamcommunity.com/sharedfiles/filedetails/?id=3565275325) should be installed alongside this patch. Several supported UF Heavy Industries weapons still rely on behavior provided by SRALib.
 
 ## Load Order
 
-```
+Load this patch after SRALib, UF Heavy Industries, and Combat Extended.
+
+Recommended order:
+
+```text
 Harmony
 Core
-Royalty / Biotech / ...
+Royalty / Ideology / Biotech / Anomaly / Odyssey
 SRALib
 UF Heavy Industries
 Combat Extended
-UF Heavy Industries CE Patch  <-- this mod
+UF Heavy Industries - CE Patch
 ```
 
-## What This Patch Does
+## Current Coverage
 
-- Converts all handheld weapons to CE ballistics with custom ammo systems
-- Adds CE melee stats (ToolCE, armor penetration) to all melee weapons
-- Preserves original mod visual effects (laser beams, slash arcs, impact effecters)
-- Preserves special weapon mechanics (tracking, penetration, multi-explosion, AOE melee)
-- Custom Harmony patches for laser beam rendering and projectile effects
+- Standard ranged weapons currently covered by this patch use CE handling, including CE ammo where that weapon has been fully converted.
+- Special weapons currently fall into three user-visible groups:
+  - Fully converted special weapons use CE projectiles and the CE ammo system.
+  - Partially converted special weapons keep their original firing behavior and projectile logic, but receive CE-oriented weapon stats.
+  - Transforming weapon forms use CE projectiles without switching to the CE ammo system.
+- Patched melee weapons use CE melee stats while preserving special melee effects where those effects were explicitly carried over.
+- Misc compatibility work currently includes a fix for `KT_Powerarmor` and a fix for trader shell stock generation.
 
-## Coverage
+## Compatibility Approach
 
-| Category | Count | Status |
-|----------|-------|--------|
-| Ranged weapons (standard) | 17 | CE ammo system |
-| Ranged weapons (special) | 8 | CE ammo + DefModExtension mechanics |
-| Ranged weapons (tracking/guided) | 4 | Vanilla ballistics, CE stats |
-| Transform weapons | 3 | CE projectiles, no ammo |
-| Melee weapons | 8 | ToolCE + AOE preserved |
+- Convert weapons to CE where that can be done cleanly without stripping out the original mod's intended weapon behavior.
+- Keep special weapons on different compatibility paths when a full CE conversion would break their distinctive mechanics.
+- Use the included assembly only where extra support is needed to preserve special effects or weapon behavior.
 
 ## Known Limitations
 
-- Tracking/guided weapons (KT_WLL, KT_101Rifle, KT_SniperII, KT_Analnail) keep original SRA/ECT projectiles and do not use CE ballistic physics
-- Transform weapons (Seal series) do not use the CE ammo system by design
-- Turrets, armor, mechanoids, and defense buildings are not yet patched
+- Not every handheld weapon currently uses CE ballistics and CE ammo.
+- Some special handheld weapons intentionally retain their original upstream projectile or verb behavior and only receive CE-oriented stats.
+- Turrets, armor, mechanoids, and defense buildings are not yet comprehensively converted.
+- If required upstream behavior or classes are missing or changed, some supported weapons may lose effects or fail to behave as expected. See `docs/reference/dependency-and-runtime-assumptions.md`.
+
+## Build And Packaging
+
+- C# sources live in `Source/`.
+- Project file: `Source/UFHeavyIndustries_CE.csproj`.
+- Built assembly output: `Assemblies/UFHeavyIndustries_CE.dll`.
+- Repository build helper: `build.sh`.
